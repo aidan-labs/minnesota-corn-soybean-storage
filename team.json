@@ -1,11 +1,14 @@
 {
-  "name": "Your Team Name",
-  "tagline": "One sentence: what you do for your customers.",
-  "link": "Source",
+  "name": "Minnesota Supply Company",
+  "tagline": "A Minnesota supplier that sources and makes products for the Supply Lab.",
+  "link": "Source+Make",
   "chain": "A",
-  "about": "Who you are and what you are good at. Replace this with two or three sentences.",
+  "about": "Minnesota Supply Company is a student-run firm in the OPMT 375 Supply Lab. We source materials and make products for other teams in our chain. Our offerings may change once the class settles on an industry.",
   "members": [
-    { "name": "First Last", "github": "github-username", "role": "e.g. operations lead" }
+    { "name": "Aidan", "github": "aidan-labs", "role": "operations lead" },
+    { "name": "Amr Mohammed", "github": "AmrMo1717", "role": "team member" },
+    { "name": "Jonathan Le", "github": "notjahnny", "role": "team member" },
+    { "name": "Pwanori Wonosikou", "github": "Reyno005", "role": "team member" }
   ],
-  "how_to_order": "Tell customers how to place an order with you. (The class will agree on a standard later; for now, write what you think works.)"
+  "how_to_order": "Open an issue in this repository's Issues tab. Include the item name, quantity, and delivery needs, and we will reply in the same issue."
 }
