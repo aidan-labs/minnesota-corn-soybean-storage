@@ -5,10 +5,10 @@
   "chain": "A",
   "about": "Minnesota Supply Company is a student-run firm in the OPMT 375 Supply Lab. We source materials and make products for other teams in our chain. This is all TBD and all may change once the class settles on an industry.",
   "members": [
-    { "name": "Aidan D.", "github": "aidan-labs", "role": "operations lead" },
+    { "name": "Aidan D.", "github": "aidan-labs", "role": "systems lead" },
     { "name": "Amr M.", "github": "AmrMo1717", "role": "operations lead" },
-    { "name": "Jonathan L.", "github": "notjahnny", "role": "operations lead" },
-    { "name": "Pwanori W.", "github": "Reyno005", "role": "operations lead" }
+    { "name": "Jonathan L.", "github": "notjahnny", "role": "finance lead" },
+    { "name": "Pwanori W.", "github": "Reyno005", "role": "planning & customer lead" }
   ],
   "how_to_order": "Open an issue in this repository's Issues tab. Include the item name, quantity, and delivery needs, and we will reply in the same issue."
 }
