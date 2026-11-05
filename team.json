@@ -1,14 +1,14 @@
 {
-  "name": "Minnesota Supply Company",
-  "tagline": "A Minnesota supplier that sources and makes products for the Supply Lab.",
-  "link": "Source+Make",
+  "name": "Minnesota Corn & Soybean Storage",
+  "tagline": "Grain storage for harvested corn and soybeans in Minnesota's agricultural supply chain.",
+  "link": "Deliver",
   "chain": "A",
-  "about": "Minnesota Supply Company is a student-run firm in the OPMT 375 Supply Lab. We source materials and make products for other teams in our chain. This is all TBD and all may change once the class settles on an industry.",
+  "about": "Minnesota Corn & Soybean Storage is a student-run firm in the OPMT 375 Supply Lab. We provide storage space for harvested corn and soybeans within Minnesota's agricultural supply chain. We hold grain until it is ready to move to buyers or to another step in the chain, such as a processing facility.",
   "members": [
     { "name": "Aidan D.", "github": "aidan-labs", "role": "systems lead" },
     { "name": "Amr M.", "github": "AmrMo1717", "role": "operations lead" },
     { "name": "Jonathan L.", "github": "notjahnny", "role": "finance lead" },
     { "name": "Pwanori W.", "github": "Reyno005", "role": "planning & customer lead" }
   ],
-  "how_to_order": "Open an issue in this repository's Issues tab. Include the item name, quantity, and delivery needs, and we will reply in the same issue."
+  "how_to_order": "Open an issue in this repository's Issues tab. Include the crop (corn or soybeans), quantity in bushels, the date the grain will arrive, the date you need it released, and where it should go next. We will reply in the same issue."
 }

@@ -1,12 +1,16 @@
 {
   "items": [
     {
-      "name": "Raw material sourcing",
-      "description": "We source raw materials on request. Open an issue with the material, quantity, and needed-by date. We reply with a price and lead time."
+      "name": "Corn storage",
+      "description": "We store harvested corn until you are ready to move it. Open an issue with the quantity in bushels, the arrival date, and the date you need it released. We will reply within 1-5 business days."
     },
     {
-      "name": "Custom production run",
-      "description": "We make products to your specification. Open an issue with the product description, quantity, and deadline. We reply with a quote and a production schedule."
+      "name": "Soybean storage",
+      "description": "We store harvested soybeans until you are ready to move them. Open an issue with the quantity in bushels, the arrival date, and the date you need it released. We will reply within 1-5 business days."
+    },
+    {
+      "name": "Release",
+      "description": "When your grain is ready to leave storage, open an issue with the crop, quantity, release date, and where it is going (a buyer, a processing facility, or another point in the supply chain). We will reply within 1-5 business days."
     }
   ]
 }
