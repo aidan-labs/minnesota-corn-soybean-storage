@@ -2,15 +2,20 @@
   "items": [
     {
       "name": "Corn storage",
-      "description": "We store harvested corn until you are ready to move it. Open an issue with the quantity in bushels, the arrival date, and the date you need it released. We will reply within 1-5 business days."
+      "description": "We store harvested corn until you are ready to move it. Open an issue with the quantity in bushels, the arrival date, and the date you need it released. We will reply within 1-5 business days.",
+      "unit": "bu (bushels)",
+      "grade": "U.S. No. 2 Yellow"
     },
     {
       "name": "Soybean storage",
-      "description": "We store harvested soybeans until you are ready to move them. Open an issue with the quantity in bushels, the arrival date, and the date you need it released. We will reply within 1-5 business days."
+      "description": "We store harvested soybeans until you are ready to move them. Open an issue with the quantity in bushels, the arrival date, and the date you need it released. We will reply within 1-5 business days.",
+      "unit": "bu (bushels)",
+      "grade": "U.S. No. 2 Yellow"
     },
     {
-      "name": "Release",
-      "description": "When your grain is ready to leave storage, open an issue with the crop, quantity, release date, and where it is going (a buyer, a processing facility, or another point in the supply chain). We will reply within 1-5 business days."
+      "name": "Release to buyer or processor",
+      "description": "When your grain is ready to leave storage, open an issue with the crop, quantity, release date, and where it is going (a buyer, a processing facility, or another point in the supply chain). We will reply within 1-5 business days.",
+      "unit": "bu (bushels)"
     }
   ]
 }
