@@ -1,7 +1,7 @@
 # Minnesota Corn & Soybean Storage
 
-Live site: https://aidan-labs.github.io/minnesota-corn-soybean-storage/
-Registered in class repository: https://github.com/OPMT375/registry/blob/main/teams/minnesota-corn-soybean-storage.json
+- Live site: https://aidan-labs.github.io/minnesota-corn-soybean-storage/
+- Registered in class repository: https://github.com/OPMT375/registry/blob/main/teams/minnesota-corn-soybean-storage.json
 
 ## What we do
 
