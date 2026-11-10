@@ -8,7 +8,11 @@
     { "name": "Aidan D.", "github": "aidan-labs", "role": "systems lead" },
     { "name": "Amr M.", "github": "AmrMo1717", "role": "operations lead" },
     { "name": "Jonathan L.", "github": "notjahnny", "role": "finance lead" },
-    { "name": "Pwanori W.", "github": "Reyno005", "role": "planning & customer lead" }
+    {
+      "name": "Pwanori W.",
+      "github": "Reyno005",
+      "role": "planning & customer lead"
+    }
   ],
   "how_to_order": "Open an issue in this repository's Issues tab. Include the crop (corn or soybeans), quantity in bushels, the date the grain will arrive, the date you need it released, and where it should go next. We will reply in the same issue."
 }
