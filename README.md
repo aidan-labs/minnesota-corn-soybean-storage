@@ -1,14 +1,23 @@
-# Team storefront
+# Minnesota Corn & Soybean Storage
 
-This repo is your firm's home in the OPMT 375 Supply Lab. Its web page is your storefront. Its Issues tab is where other teams will contact you, and later where they will send orders.
+Live site: https://aidan-labs.github.io/minnesota-corn-soybean-storage/
+Registered in class repository: https://github.com/OPMT375/registry/blob/main/teams/minnesota-corn-soybean-storage.json
 
-## Get it live
+## What we do
 
-1. Edit **`team.json`**: your name, tagline, assigned link and chain, members (with GitHub usernames), and how to order.
-2. Edit **`catalog.json`**: what you offer. Write it so a buyer at another table could order correctly without talking to you.
-3. Go to **Settings → Pages**. Set Source to _Deploy from a branch_, Branch to `main`, and folder to `/ (root)`, then click **Save**.
-4. After about a minute, your storefront is live at `https://<owner>.github.io/<repo>/`.
-5. Join the class registry (see the registry repo's README).
+Minnesota Corn & Soybean Storage is a student-run firm in the OPMT 375 Supply Lab. We provide storage space for harvested corn and soybeans within Minnesota's agricultural supply chain. We hold grain until it is ready to move to buyers or to another step in the chain, such as a processing facility.
+
+## Why we chose it
+
+The class agreed to focus on Minnesota's food and agricultural industry. We chose grain storage because it is a focused specialty, and existing companies already do it.
+
+**Existing company:** Farmward Cooperative (Morgan, MN) has 3 million bushels of grain storage at its Morgan elevator and receives corn and soybeans. Source: [Nu Journal, "Phase two of Farmward Cooperative elevator expansion underway"](https://nujournal.com/news/special-sections/progress/2025/02/27/phase-two-of-farmward-cooperative-elevator-expansion-underway) (Feb 27, 2025).
+
+They say it on their website. Click here: https://farmward.net/grain/. Then expand _What crops can you help with?_.
+
+## Why corn and soybeans
+
+They are Minnesota's two biggest crops. In 2025 the state produced about 1.70 billion bushels of corn and 371 million bushels of soybeans ([USDA NASS state overview](https://www.nass.usda.gov/Quick_Stats/Ag_Overview/stateOverview.php?state=Minnesota)). Redwood County ranks #1 in the state for soybean production.
 
 ## Rules of the lab
 
