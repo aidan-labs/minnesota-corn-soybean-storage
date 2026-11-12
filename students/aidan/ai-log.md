@@ -62,3 +62,9 @@ To get that code I did:
 ```bash
 curl -o students/aidan/weather.json "https://api.open-meteo.com/v1/forecast?latitude=44.54&longitude=-95.12&daily=precipitation_sum,temperature_2m_max,temperature_2m_min&forecast_days=14&timezone=America%2FChicago&precipitation_unit=inch&temperature_unit=fahrenheit"
 ```
+
+## First Prompt Reflection
+
+It did okay. First, it did not capture the current date, and the date up to the end of the forecast. I did not specify that purposefully to see if it would do it. It did not. The title, or a heading, should be the question I see the answer. I told it to use `weather.json` but also confused the model saying to make a standalone file, so it did not use `weather.json`, instead it hardcoded the data. My next prompt is where I asked for the HTML file to dynamically pull the 14-day forecast using the free API, have the current date, and then have each date displayed for the 14-day forecast.
+
+It is also where I specify that the `weather.json` file should have the source command and the date I downloaded it in a comment at the top of the file. And it should be used only if the API is down. And it should have note stating the dates of the potentially stale data, saying the current date, and then the date of the data, so we can know how stale it is.
