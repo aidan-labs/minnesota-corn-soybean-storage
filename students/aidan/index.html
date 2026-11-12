@@ -236,6 +236,7 @@
 
       const slider = document.getElementById("t");
 
+      // ME: Stores the weather data while the page is running
       let weather = null;
 
       function todayInCentral() {
@@ -299,6 +300,7 @@
           "Today: " + formatDate(todayInCentral()) + " · Redwood County, MN";
 
         try {
+          // ME: Gets the weather data from the weather API
           const response = await fetch(API);
 
           if (!response.ok) throw new Error("API request failed.");
@@ -361,6 +363,7 @@
         }
       }
 
+      // ME: Uses the weather data to count rain delay days and update the chart
       function draw() {
         if (!weather) return;
 
