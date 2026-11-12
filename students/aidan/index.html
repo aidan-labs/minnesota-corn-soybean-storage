@@ -1,0 +1,249 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Grain delivery forecast: Redwood County, MN</title>
+    <style>
+      :root {
+        --fg: #09090b;
+        --muted: #71717a;
+        --line: #e4e4e7;
+        --bg: #fff;
+        --bad: #dc2626;
+        --good: #18181b;
+      }
+      body {
+        font:
+          14px/1.5 system-ui,
+          sans-serif;
+        color: var(--fg);
+        background: var(--bg);
+        margin: 0;
+        padding: 24px;
+      }
+      main {
+        max-width: 720px;
+        margin: 0 auto;
+      }
+      h1 {
+        font-size: 22px;
+        margin: 0 0 4px;
+      }
+      p {
+        margin: 0;
+        color: var(--muted);
+      }
+      .card {
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        padding: 20px;
+        margin-top: 16px;
+      }
+      .verdict {
+        font-size: 18px;
+        font-weight: 600;
+        color: var(--fg);
+      }
+      .row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 8px;
+      }
+      input[type="range"] {
+        width: 100%;
+        accent-color: var(--fg);
+      }
+      .chart {
+        position: relative;
+        display: flex;
+        align-items: flex-end;
+        gap: 4px;
+        height: 160px;
+        border-bottom: 1px solid var(--line);
+        margin-top: 8px;
+      }
+      .col {
+        flex: 1;
+        display: flex;
+        align-items: flex-end;
+        height: 100%;
+      }
+      .bar {
+        width: 100%;
+        min-height: 2px;
+        background: var(--good);
+        border-radius: 3px 3px 0 0;
+      }
+      .bar.over {
+        background: var(--bad);
+      }
+      .line {
+        position: absolute;
+        left: 0;
+        right: 0;
+        border-top: 1px dashed var(--muted);
+        pointer-events: none;
+      }
+      .labels {
+        display: flex;
+        gap: 4px;
+        margin-top: 6px;
+        text-align: center;
+        font-size: 11px;
+        color: var(--muted);
+      }
+      .labels div {
+        flex: 1;
+      }
+      .legend {
+        display: flex;
+        gap: 16px;
+        margin-top: 12px;
+        font-size: 12px;
+        color: var(--muted);
+      }
+      .dot {
+        display: inline-block;
+        width: 8px;
+        height: 8px;
+        border-radius: 2px;
+        margin-right: 6px;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>Grain delivery forecast</h1>
+      <p>Redwood County, MN · next 14 days</p>
+
+      <div class="card">
+        <div class="verdict" id="verdict"></div>
+        <p id="detail"></p>
+      </div>
+
+      <div class="card">
+        <div class="row">
+          <label for="t">Rain delay threshold</label>
+          <strong id="tval"></strong>
+        </div>
+        <input id="t" type="range" min="0" max="0.6" step="0.01" value="0.1" />
+        <p style="font-size: 12px">
+          A day with more rain than this counts as a delay day.
+        </p>
+      </div>
+
+      <div class="card">
+        <div class="row"><strong>Daily rainfall (inches)</strong></div>
+        <div class="chart" id="chart"></div>
+        <div class="labels" id="labels"></div>
+        <div class="legend">
+          <span
+            ><span class="dot" style="background: var(--good)"></span>Good
+            day</span
+          >
+          <span
+            ><span class="dot" style="background: var(--bad)"></span>Over
+            threshold</span
+          >
+        </div>
+      </div>
+    </main>
+
+    <script>
+      /*
+  WHERE THE DATA COMES FROM
+  This is a 14-day forecast from Open-Meteo, a free weather service
+  (api.open-meteo.com). It was requested for a spot in Redwood County, MN,
+  with rain in inches and temperatures in °F.
+
+  WHERE IT IS STORED
+  The forecast was saved once as weather.json using curl. A copy of that
+  file is pasted below, so this page needs no internet and no other files.
+  It does NOT update itself. To refresh it, run the curl command again
+  and paste the new contents over the data below.
+*/
+      const weather = {
+        daily_units: { precipitation_sum: "inch" },
+        daily: {
+          time: [
+            "2026-11-12",
+            "2026-11-13",
+            "2026-11-14",
+            "2026-11-15",
+            "2026-11-16",
+            "2026-11-17",
+            "2026-11-18",
+            "2026-11-19",
+            "2026-11-20",
+            "2026-11-21",
+            "2026-11-22",
+            "2026-11-23",
+            "2026-11-24",
+            "2026-11-25",
+          ],
+          precipitation_sum: [
+            0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.106, 0.0, 0.52, 0.0, 0.0, 0.0,
+            0.0,
+          ],
+          temperature_2m_max: [
+            37.1, 33.2, 45.2, 50.6, 54.7, 57.2, 60.1, 56.9, 50.3, 41.2, 44.4,
+            40.6, 32.6, 28.9,
+          ],
+          temperature_2m_min: [
+            30.8, 30.1, 29.6, 32.4, 38.0, 44.4, 51.1, 46.2, 41.2, 38.7, 37.0,
+            30.1, 27.3, 22.2,
+          ],
+        },
+      };
+
+      const d = weather.daily;
+      const slider = document.getElementById("t");
+      const chartTop = 0.6; // Top of the chart in inches (matches the slider's max)
+
+      // Draw the page. Runs once at start and again whenever the slider moves.
+      function draw() {
+        const limit = Number(slider.value);
+        document.getElementById("tval").textContent = limit.toFixed(2) + " in";
+
+        const bad = d.precipitation_sum.map((p) => p > limit);
+        const good = bad.filter((b) => !b).length;
+
+        // Bars: red if the day's rain is above the threshold.
+        document.getElementById("chart").innerHTML =
+          d.precipitation_sum
+            .map(
+              (p, i) =>
+                `<div class="col" title="${d.time[i]}: ${p} in, ${d.temperature_2m_min[i]}–${d.temperature_2m_max[i]}°F">
+         <div class="bar ${bad[i] ? "over" : ""}" style="height:${Math.min(p / chartTop, 1) * 100}%"></div>
+       </div>`,
+            )
+            .join("") +
+          `<div class="line" style="bottom:${(limit / chartTop) * 100}%"></div>`;
+
+        // Under each bar: the date and the high temperature.
+        document.getElementById("labels").innerHTML = d.time
+          .map((day, i) => {
+            const date = new Date(day + "T12:00:00");
+            return `<div>${date.getMonth() + 1}/${date.getDate()}<br>${Math.round(d.temperature_2m_max[i])}°</div>`;
+          })
+          .join("");
+
+        // Plain-English answer.
+        const delays = 14 - good;
+        document.getElementById("verdict").textContent =
+          delays === 0
+            ? "Good weather. No rain delays expected."
+            : delays <= 2
+              ? "Mostly good. Expect a few rain delays."
+              : "Expect rain delays.";
+        document.getElementById("detail").textContent =
+          `${good} of 14 days are good for delivery. ${delays} ${delays === 1 ? "day is" : "days are"} over the threshold.`;
+      }
+
+      slider.addEventListener("input", draw);
+      draw();
+    </script>
+  </body>
+</html>
