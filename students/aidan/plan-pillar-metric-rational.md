@@ -1,5 +1,7 @@
 # PLAN Pillar Metric Rationale
 
+This file explains my rational for my row I added in `dashboard/metrics.csv`.
+
 For the Plan pillar, I chose **Grain Storage Allocation Planning Cycle Time** as the metric and **storage allocation planning** as the capability to focus on. The goal is to demonstrate how digital planning systems can help Minnesota Corn & Soybean Storage determine where grain should be stored more quickly and efficiently.
 
 **Real-world example: MHP (Ukraine)**
