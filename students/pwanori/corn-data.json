@@ -1,11 +1,10 @@
-
 [
-  {"year": 2008, "bushels": 2027831, "type": "Certified & exempt"},
-  {"year": 2011, "bushels": 1990642, "type": "Certified"},
-  {"year": 2014, "bushels": 2254508, "type": "Certified & exempt"},
-  {"year": 2015, "bushels": 2587871, "type": "Certified"},
-  {"year": 2016, "bushels": 3699542, "type": "Certified"},
-  {"year": 2019, "bushels": 3746944, "type": "Certified"},
-  {"year": 2021, "bushels": 3842704, "type": "Certified"},
-  {"year": 2025, "bushels": 6668325, "type": "Certified"}
+  { "year": 2008, "bushels": 2027831, "type": "Certified & exempt" },
+  { "year": 2011, "bushels": 1990642, "type": "Certified" },
+  { "year": 2014, "bushels": 2254508, "type": "Certified & exempt" },
+  { "year": 2015, "bushels": 2587871, "type": "Certified" },
+  { "year": 2016, "bushels": 3699542, "type": "Certified" },
+  { "year": 2019, "bushels": 3746944, "type": "Certified" },
+  { "year": 2021, "bushels": 3842704, "type": "Certified" },
+  { "year": 2025, "bushels": 6668325, "type": "Certified" }
 ]
