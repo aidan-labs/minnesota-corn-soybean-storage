@@ -1,1 +1,218 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Minnesota Organic Corn Harvest Planning</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background: #f3f7f0;
+      color: #24372a;
+    }
+    header {
+      background: #245b39;
+      color: white;
+      padding: 35px 20px;
+      text-align: center;
+    }
+    main {
+      max-width: 950px;
+      margin: 25px auto;
+      padding: 0 15px;
+    }
+    section {
+      background: white;
+      padding: 25px;
+      border-radius: 12px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 8px #00000012;
+    }
+    h2 { color: #245b39; }
+    select {
+      padding: 10px;
+      border-radius: 6px;
+      font-size: 16px;
+    }
+    .number {
+      font-size: 32px;
+      font-weight: bold;
+      color: #245b39;
+    }
+    canvas {
+      width: 100%;
+      max-height: 400px;
+    }
+    footer {
+      text-align: center;
+      padding: 20px;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Minnesota Organic Corn Harvest Planning</h1>
+  <p>USDA Production Data & Supply Chain Decisions</p>
+</header>
+
+<main>
+  <section>
+    <h2>Our Decision Question</h2>
+    <p>How has organic corn production changed in
+    Minnesota, and how can grain elevators use this
+    information to plan storage and transportation
+    capacity?</p>
+  </section>
+
+  <section>
+    <h2>Explore Production by Year</h2>
+    <label for="year">Select a year:</label>
+    <select id="year"></select>
+
+    <h3>Reported Organic Corn Production</h3>
+    <div class="number" id="production"></div>
+    <p id="category"></p>
+  </section>
+
+  <section>
+    <h2>Production Trends</h2>
+    <canvas id="cornChart"></canvas>
+    <p>Choose a year above to highlight its production
+    on the chart.</p>
+  </section>
+
+  <section>
+    <h2>What Does This Mean for Supply Chains?</h2>
+    <p>
+      Changes in corn production can affect grain
+      elevator storage requirements, truck scheduling,
+      and transportation capacity.
+    </p>
+    <p>
+      Grain elevators can use historical production
+      trends as one input when planning future
+      operations. However, statewide organic production
+      alone cannot predict demand at an individual
+      elevator.
+    </p>
+  </section>
+
+  <section>
+    <h2>Data Source and Limitations</h2>
+    <p>
+      Source: USDA National Agricultural Statistics
+      Service (NASS), Quick Stats.
+    </p>
+    <p>
+      The dataset reports Minnesota organic grain corn
+      production in bushels. It contains selected years
+      from 2008 through 2025, not every year.
+    </p>
+    <p>
+      The 2008 and 2014 figures combine USDA-certified
+      and exempt organic production. Other displayed
+      years represent USDA-certified production.
+      Values marked (D) were withheld and are excluded.
+      These category differences limit direct comparisons.
+    </p>
+    <a href="https://quickstats.nass.usda.gov/"
+       target="_blank" rel="noopener">
+       Visit USDA NASS Quick Stats
+    </a>
+  </section>
+</main>
+
+<footer>
+  Harvest to Screen | Minnesota Agriculture
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+  // Source: USDA NASS Quick Stats.
+  // Original dataset: CORN website.xlsx.
+  // Data is stored below as an array of JavaScript objects.
+  // Each object has a year, production value in bushels,
+  // and the organic certification category.
+  // Withheld (D) values are not included.
+  // Combined certified-and-exempt totals are not double counted.
+
+  const cornData = [
+    {year: 2008, bushels: 2027831, type: "Certified & exempt"},
+    {year: 2011, bushels: 1990642, type: "Certified"},
+    {year: 2014, bushels: 2254508, type: "Certified & exempt"},
+    {year: 2015, bushels: 2587871, type: "Certified"},
+    {year: 2016, bushels: 3699542, type: "Certified"},
+    {year: 2019, bushels: 3746944, type: "Certified"},
+    {year: 2021, bushels: 3842704, type: "Certified"},
+    {year: 2025, bushels: 6668325, type: "Certified"}
+  ];
+
+  const selector = document.getElementById("year");
+  const production = document.getElementById("production");
+  const category = document.getElementById("category");
+
+  cornData.forEach(item => {
+    const option = document.createElement("option");
+    option.value = item.year;
+    option.textContent = item.year;
+    selector.appendChild(option);
+  });
+
+  const chart = new Chart(
+    document.getElementById("cornChart"), {
+      type: "bar",
+      data: {
+        labels: cornData.map(item => item.year),
+        datasets: [{
+          label: "Production (bushels)",
+          data: cornData.map(item => item.bushels),
+          backgroundColor: cornData.map(() => "#8cbb83")
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: {display: true}
+        },
+        scales: {
+          y: {
+            beginAtZero: true,
+            title: {
+              display: true,
+              text: "Bushels"
+            }
+          }
+        }
+      }
+    }
+  );
+
+  function updateWebsite() {
+    const selectedYear = Number(selector.value);
+    const item = cornData.find(d => d.year === selectedYear);
+
+    production.textContent =
+      item.bushels.toLocaleString() + " bushels";
+
+    category.textContent =
+      "Organic status: " + item.type;
+
+    chart.data.datasets[0].backgroundColor =
+      cornData.map(d =>
+        d.year === selectedYear ? "#245b39" : "#8cbb83"
+      );
+
+    chart.update();
+  }
+
+  selector.addEventListener("change", updateWebsite);
+  selector.value = "2025";
+  updateWebsite();
+</script>
+
+</body>
+</html>
+
