@@ -18,9 +18,3 @@ They say it on their website. Click here: https://farmward.net/grain/. Then expa
 ## Why corn and soybeans
 
 They are Minnesota's two biggest crops. In 2025 the state produced about 1.70 billion bushels of corn and 371 million bushels of soybeans ([USDA NASS state overview](https://www.nass.usda.gov/Quick_Stats/Ag_Overview/stateOverview.php?state=Minnesota)). Redwood County ranks #1 in the state for soybean production.
-
-## Rules of the lab
-
-- Edit the JSON files, not `app.js`. If the page says a file "is not valid JSON," look for a missing comma or quote.
-- Everything your team does with other teams goes through this repo: messages, orders, invoices, shipments. If it isn't in the repo, it didn't happen.
-- Add every teammate as a collaborator: **Settings → Collaborators**.
