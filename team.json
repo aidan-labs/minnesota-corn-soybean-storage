@@ -25,5 +25,5 @@
       "role": "planning & customer lead"
     }
   ],
-  "how_to_order": "Open an issue in this repository's Issues tab. Include the crop (corn or soybeans), quantity in bushels, the date the grain will arrive, the date you need it released, and where it should go next. We will reply in the same issue."
+  "how_to_order": "Click \"Contact us\" below to open a new issue on this repository's GitHub page (you'll need a free GitHub account). Include the crop (corn or soybeans), quantity in bushels, the date the grain will arrive, the date you need it released, and where it should go next. We will reply in the same issue."
 }
