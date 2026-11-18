@@ -1,4 +1,4 @@
-// Renders the storefront from team.json and catalog.json. Students edit the JSON, not this file.
+// Renders the storefront from team.json and catalog.json
 (async function () {
   const $ = (id) => document.getElementById(id);
   const esc = (s) =>
@@ -24,6 +24,22 @@
         `${file} is not valid JSON. Check for a missing comma or quote.`,
       );
     }
+  }
+
+  // NEW: turns a member's "capability" value (string, array, or {title,url}) into a list of links
+  function capabilityLinks(m) {
+    const list = [].concat(m.capability || []);
+    return list
+      .map((c) =>
+        typeof c === "string"
+          ? { url: c, title: `${m.name}'s capability page` }
+          : {
+              url: c && c.url,
+              title: (c && c.title) || `${m.name}'s capability page`,
+            },
+      )
+      .filter((c) => c.url)
+      .map((c) => ({ ...c, pillar: m.pillar || m.role || "", owner: m.name }));
   }
 
   try {
@@ -60,6 +76,19 @@
           .join("")
       : '<p class="muted">Nothing listed yet.</p>';
 
+    // NEW: one card per capability page, collected from every team member
+    const caps = (team.members || []).flatMap(capabilityLinks);
+    $("capabilities").innerHTML = caps.length
+      ? caps
+          .map(
+            (c) =>
+              `<article class="card">${
+                c.pillar ? `<p class="eyebrow">${esc(c.pillar)}</p>` : ""
+              }<h3><a href="${esc(c.url)}" target="_blank" rel="noopener noreferrer">${esc(c.title)}</a></h3><p class="muted">By ${esc(c.owner)}</p></article>`,
+          )
+          .join("")
+      : '<p class="muted">Capability pages coming soon.</p>';
+
     $("members").innerHTML = (team.members || [])
       .map(
         (m) =>
@@ -71,7 +100,7 @@
       )
       .join("");
 
-    // "Contact us" opens a new Issue on this repo (owner.github.io/repo → github.com/owner/repo/issues/new)
+    // "Contact us" opens a new Issue on this repo
     const host = location.hostname.match(/^([^.]+)\.github\.io$/);
     const repo = location.pathname.split("/").filter(Boolean)[0];
     if (host && repo)

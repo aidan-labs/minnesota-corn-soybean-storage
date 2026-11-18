@@ -5,7 +5,18 @@
   "chain": "A",
   "about": "Minnesota Corn & Soybean Storage is a student-run firm in the OPMT 375 Supply Lab. We provide storage space for harvested corn and soybeans within Minnesota's agricultural supply chain. We hold grain until it is ready to move to buyers or to another step in the chain, such as a processing facility.",
   "members": [
-    { "name": "Aidan D.", "github": "aidan-labs", "role": "systems lead" },
+    {
+      "name": "Aidan D.",
+      "github": "aidan-labs",
+      "role": "systems lead",
+      "pillar": "Plan",
+      "capability": [
+        {
+          "title": "Storage allocation planning",
+          "url": "students/aidan/capability/"
+        }
+      ]
+    },
     { "name": "Amr M.", "github": "AmrMo1717", "role": "operations lead" },
     { "name": "Jonathan L.", "github": "notjahnny", "role": "finance lead" },
     {
