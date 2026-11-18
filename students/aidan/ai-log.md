@@ -770,7 +770,7 @@ It did good enough. I decied to not have the file try and magically guess every 
 
 ### Third Prompt
 
-Create my PLAN pillar capability page for me, I will place it in `students/aidan/index.html`.
+Create my PLAN pillar capability page for me, I will place it in `students/aidan/capability/index.html`.
 
 Follow the assignment's six required elements exactly:
 
