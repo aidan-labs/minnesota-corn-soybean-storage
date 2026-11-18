@@ -139,16 +139,14 @@
   // Withheld (D) values are not included.
   // Combined certified-and-exempt totals are not double counted.
 
-  const cornData = [
-    {year: 2008, bushels: 2027831, type: "Certified & exempt"},
-    {year: 2011, bushels: 1990642, type: "Certified"},
-    {year: 2014, bushels: 2254508, type: "Certified & exempt"},
-    {year: 2015, bushels: 2587871, type: "Certified"},
-    {year: 2016, bushels: 3699542, type: "Certified"},
-    {year: 2019, bushels: 3746944, type: "Certified"},
-    {year: 2021, bushels: 3842704, type: "Certified"},
-    {year: 2025, bushels: 6668325, type: "Certified"}
-  ];
+  // ME: The corn production data comes into my website
+// from the corn-data.json file saved in my GitHub folder.
+// This is a copy of the USDA NASS data I downloaded.
+
+let cornData = [];
+
+// ME: This array keeps the corn production information
+// in memory while someone is using my website.
 
   const selector = document.getElementById("year");
   const production = document.getElementById("production");
@@ -208,9 +206,47 @@
     chart.update();
   }
 
-  selector.addEventListener("change", updateWebsite);
-  selector.value = "2025";
-  updateWebsite();
+// ME: This part loads my saved corn data from the JSON file.
+// The file is stored in the same GitHub folder as my website.
+
+fetch("./corn-data.json")
+  .then(response => {
+    if (!response.ok) {
+      throw new Error("Could not load corn data");
+    }
+    return response.json();
+  })
+  .then(data => {
+
+    // ME: The data is kept in the cornData array
+    // while the website is running.
+    cornData = data;
+
+    // Add the available years to the dropdown.
+    selector.innerHTML = "";
+
+    cornData.forEach(item => {
+      const option = document.createElement("option");
+      option.value = item.year;
+      option.textContent = item.year;
+      selector.appendChild(option);
+    });
+
+    // ME: This updates the chart using the stored data.
+    // It also lets users compare production by year.
+    chart.data.labels = cornData.map(item => item.year);
+    chart.data.datasets[0].data =
+      cornData.map(item => item.bushels);
+
+    selector.value = "2025";
+    updateWebsite();
+
+    selector.addEventListener("change", updateWebsite);
+  })
+  .catch(error => {
+    console.error("Error loading corn data:", error);
+    production.textContent = "Unable to load corn data.";
+  });
 </script>
 
 </body>
