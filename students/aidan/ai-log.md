@@ -2544,3 +2544,1024 @@ code {
 ### Fifth Prompt
 
 Great! I've replaced and tested everything accordingly. Simple one request: Make it so all links open in a new-tab. So you'll need to add noopener and noreferrer and target="\_balnk" to the link creation function we added for our capability and dashboard links.
+
+### Sixth Prompt
+
+Amazing! Now, in each, I need to add a brief note just making sure they know they are vendor claims! I said it here in my rationale markdown file, but I need to make it clear on the site so I get a good grade. Just return the new snippets I need to add, nothing else. I know how to read code and will know where to add them properly.
+
+```html
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>MCSS Performance Dashboard</title>
+
+    <style>
+      :root {
+        --fg: #09090b;
+        --muted: #71717a;
+        --line: #e4e4e7;
+        --bg: #fff;
+        --bad: #dc2626;
+        --good: #18181b;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        font:
+          14px/1.5 system-ui,
+          sans-serif;
+        color: var(--fg);
+        background: var(--bg);
+        margin: 0;
+        padding: 24px;
+      }
+
+      main {
+        max-width: 720px;
+        margin: 0 auto;
+      }
+
+      h1 {
+        font-size: 22px;
+        line-height: 1.35;
+        margin: 0 0 8px;
+      }
+
+      h2 {
+        font-size: 16px;
+        margin: 0;
+      }
+
+      p {
+        margin: 0;
+        color: var(--muted);
+      }
+
+      .summary {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+        margin-top: 16px;
+      }
+
+      .card {
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        padding: 20px;
+        margin-top: 16px;
+      }
+
+      .summary .card {
+        margin-top: 0;
+        padding: 14px;
+      }
+
+      .summary-label {
+        font-size: 12px;
+        color: var(--muted);
+      }
+
+      .summary-value {
+        font-size: 20px;
+        font-weight: 600;
+        margin-top: 4px;
+      }
+
+      .section-title {
+        margin-top: 28px;
+      }
+
+      .metric-title {
+        font-size: 16px;
+        font-weight: 600;
+        line-height: 1.4;
+      }
+
+      .metric-meta {
+        font-size: 12px;
+        color: var(--muted);
+        margin-top: 4px;
+      }
+
+      .row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 8px;
+      }
+
+      .pillar {
+        flex-shrink: 0;
+        border: 1px solid var(--line);
+        border-radius: 6px;
+        padding: 3px 8px;
+        font-size: 11px;
+        color: var(--muted);
+      }
+
+      .values {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+        margin-top: 18px;
+      }
+
+      .value {
+        min-width: 0;
+        border: 1px solid var(--line);
+        border-radius: 6px;
+        padding: 12px;
+      }
+
+      .value.target {
+        border-color: var(--fg);
+      }
+
+      .value-label {
+        font-size: 12px;
+        color: var(--muted);
+        margin-bottom: 6px;
+      }
+
+      .value-number {
+        font-size: 20px;
+        font-weight: 600;
+        overflow-wrap: anywhere;
+      }
+
+      .value-unit {
+        font-size: 12px;
+        color: var(--muted);
+        font-weight: 400;
+      }
+
+      .metric-footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-top: 16px;
+        padding-top: 12px;
+        border-top: 1px solid var(--line);
+      }
+
+      .status {
+        font-size: 12px;
+        color: var(--muted);
+      }
+
+      .status.achieved {
+        color: var(--good);
+        font-weight: 600;
+      }
+
+      .status.not-achieved {
+        color: var(--bad);
+        font-weight: 600;
+      }
+
+      .source-link {
+        color: var(--fg);
+        font-size: 12px;
+        text-decoration: underline;
+        text-underline-offset: 2px;
+      }
+
+      .source-date {
+        color: var(--muted);
+        font-size: 12px;
+      }
+
+      .message {
+        color: var(--muted);
+        font-size: 13px;
+      }
+
+      .warning {
+        color: var(--bad);
+        margin-top: 8px;
+      }
+
+      @media (max-width: 480px) {
+        body {
+          padding: 16px;
+        }
+
+        .summary {
+          grid-template-columns: 1fr;
+        }
+
+        .card {
+          padding: 16px;
+        }
+
+        .values {
+          gap: 6px;
+        }
+
+        .value {
+          padding: 9px;
+        }
+
+        .value-number {
+          font-size: 17px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <main>
+      <h1>Minnesota Corn & Soybean Storage</h1>
+      <p>Performance Dashboard · OPMT 375 Final Project</p>
+
+      <div class="summary">
+        <div class="card">
+          <div class="summary-label">Total metrics</div>
+          <div class="summary-value" id="metric-count">—</div>
+        </div>
+
+        <div class="card">
+          <div class="summary-label">SCOR pillars</div>
+          <div class="summary-value" id="pillar-count">—</div>
+        </div>
+
+        <div class="card">
+          <div class="summary-label">Targets achieved</div>
+          <div class="summary-value" id="targets-achieved">—</div>
+        </div>
+      </div>
+
+      <h2 class="section-title">Performance Metrics</h2>
+
+      <div id="metrics">
+        <div class="card message">Loading dashboard data...</div>
+      </div>
+    </main>
+
+    <script>
+      const CSV_PATH = "./metrics.csv";
+
+      function parseCSV(text) {
+        const rows = [];
+        let row = [];
+        let field = "";
+        let insideQuotes = false;
+
+        for (let i = 0; i < text.length; i++) {
+          const char = text[i];
+          const next = text[i + 1];
+
+          if (char === '"' && insideQuotes && next === '"') {
+            field += '"';
+            i++;
+          } else if (char === '"') {
+            insideQuotes = !insideQuotes;
+          } else if (char === "," && !insideQuotes) {
+            row.push(field.trim());
+            field = "";
+          } else if ((char === "\n" || char === "\r") && !insideQuotes) {
+            if (char === "\r" && next === "\n") i++;
+
+            row.push(field.trim());
+
+            if (row.some((cell) => cell !== "")) {
+              rows.push(row);
+            }
+
+            row = [];
+            field = "";
+          } else {
+            field += char;
+          }
+        }
+
+        row.push(field.trim());
+
+        if (row.some((cell) => cell !== "")) {
+          rows.push(row);
+        }
+
+        if (rows.length < 2) return [];
+
+        const headers = rows[0].map((header) =>
+          header.replace(/^\uFEFF/, "").trim(),
+        );
+
+        return rows.slice(1).map((values) => {
+          const record = {};
+
+          headers.forEach((header, index) => {
+            record[header] = values[index] ?? "";
+          });
+
+          return record;
+        });
+      }
+
+      function escapeHTML(value) {
+        return String(value ?? "").replace(
+          /[&<>"']/g,
+          (char) =>
+            ({
+              "&": "&amp;",
+              "<": "&lt;",
+              ">": "&gt;",
+              '"': "&quot;",
+              "'": "&#39;",
+            })[char],
+        );
+      }
+
+      function isValidNumber(value) {
+        return value !== "" && Number.isFinite(Number(value));
+      }
+
+      function formatNumber(value) {
+        if (!isValidNumber(value)) {
+          return escapeHTML(value || "—");
+        }
+
+        const number = Number(value);
+
+        return Number.isInteger(number)
+          ? number.toLocaleString()
+          : number.toLocaleString(undefined, {
+              maximumFractionDigits: 2,
+            });
+      }
+
+      // PLAN metric display
+      function renderPLAN(metric) {
+        const status = getStatus(metric);
+        const improvement = getImprovement(metric);
+        const unit = escapeHTML(metric.unit || "");
+        const sourceURL = metric.source_url || "";
+
+        const sourceLink = /^https?:\/\//i.test(sourceURL)
+          ? `<a class="source-link"
+               href="${escapeHTML(sourceURL)}"
+               target="_blank"
+               rel="noopener noreferrer">View source</a>`
+          : `<span class="source-date">Source not provided</span>`;
+
+        return `
+          <div class="card">
+            <div class="row">
+              <div>
+                <div class="metric-title">
+                  ${escapeHTML(metric.metric || "Untitled metric")}
+                </div>
+                <div class="metric-meta">
+                  ${escapeHTML(metric.owner || "")}
+                  ${
+                    metric.real_company
+                      ? " · " + escapeHTML(metric.real_company)
+                      : ""
+                  }
+                </div>
+              </div>
+
+              <span class="pillar">PLAN</span>
+            </div>
+
+            <div class="values">
+              <div class="value">
+                <div class="value-label">MHP Before Azure</div>
+                <div class="value-number">
+                  ${formatNumber(metric.incumbent_value)}
+                  <span class="value-unit">${unit}</span>
+                </div>
+              </div>
+
+              <div class="value">
+                <div class="value-label">MHP After Azure</div>
+                <div class="value-number">
+                  ${formatNumber(metric.our_value)}
+                  <span class="value-unit">${unit}</span>
+                </div>
+              </div>
+
+              <div class="value target">
+                <div class="value-label">MCSS Target</div>
+                <div class="value-number">
+                  ${formatNumber(metric.target)}
+                  <span class="value-unit">${unit}</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="metric-footer">
+              <div>
+                <span class="status ${status.className}">
+                  ${status.label}
+                </span>
+
+                ${
+                  improvement !== null
+                    ? `<span class="status">
+                        · ${improvement.toFixed(1)}% improvement over MHP baseline
+                      </span>`
+                    : ""
+                }
+              </div>
+
+              <div>
+                ${sourceLink}
+                ${
+                  metric.as_of
+                    ? `<span class="source-date">
+                        · ${escapeHTML(metric.as_of)}
+                      </span>`
+                    : ""
+                }
+              </div>
+            </div>
+          </div>
+        `;
+      }
+
+      // Add additional pillar-specific functions as teammates complete them
+      function renderMetric(metric) {
+        const pillar = (metric.pillar || "").trim().toUpperCase();
+
+        if (pillar === "PLAN") {
+          return renderPLAN(metric);
+        } else if (pillar === "SOURCE") {
+          // return renderSOURCE(metric);
+        } else if (pillar === "MAKE") {
+          // return renderMAKE(metric);
+        } else if (pillar === "DELIVER") {
+          // return renderDELIVER(metric);
+        } else if (pillar === "RETURN") {
+          // return renderRETURN(metric);
+        } else {
+          return `
+            <div class="card">
+              <div class="row">
+                <strong>
+                  ${escapeHTML(metric.metric || "Untitled metric")}
+                </strong>
+                <span class="pillar">
+                  ${escapeHTML(pillar || "OTHER")}
+                </span>
+              </div>
+              <p class="message">
+                A display for this pillar has not been added yet.
+              </p>
+            </div>
+          `;
+        }
+      }
+
+      function getStatus(metric) {
+        if (!isValidNumber(metric.our_value) || !isValidNumber(metric.target)) {
+          return {
+            className: "",
+            label: "Status unavailable",
+          };
+        }
+
+        const lowerIsBetter = /time|cycle|cost|error|defect|delay|waste/i.test(
+          metric.metric || "",
+        );
+
+        const achieved = lowerIsBetter
+          ? Number(metric.our_value) <= Number(metric.target)
+          : Number(metric.our_value) >= Number(metric.target);
+
+        return achieved
+          ? {
+              className: "achieved",
+              label: "Target achieved",
+            }
+          : {
+              className: "not-achieved",
+              label: "Target not achieved",
+            };
+      }
+
+      function getImprovement(metric) {
+        if (
+          !isValidNumber(metric.incumbent_value) ||
+          !isValidNumber(metric.our_value)
+        ) {
+          return null;
+        }
+
+        const baseline = Number(metric.incumbent_value);
+        const current = Number(metric.our_value);
+
+        if (baseline === 0) return null;
+
+        const lowerIsBetter = /time|cycle|cost|error|defect|delay|waste/i.test(
+          metric.metric || "",
+        );
+
+        const result = lowerIsBetter
+          ? ((baseline - current) / Math.abs(baseline)) * 100
+          : ((current - baseline) / Math.abs(baseline)) * 100;
+
+        return Number.isFinite(result) ? result : null;
+      }
+
+      async function loadDashboard() {
+        const container = document.getElementById("metrics");
+
+        try {
+          // ME: Loads all team members performance metrics from the shared CSV file
+          const response = await fetch(CSV_PATH, {
+            cache: "no-store",
+          });
+
+          if (!response.ok) {
+            throw new Error(`Could not load metrics.csv (${response.status})`);
+          }
+
+          const csvText = await response.text();
+          const metrics = parseCSV(csvText);
+
+          const validMetrics = metrics.filter(
+            (metric) => metric.metric && metric.pillar,
+          );
+
+          const pillars = new Set(
+            validMetrics.map((metric) => metric.pillar.trim().toUpperCase()),
+          );
+
+          const achievedCount = validMetrics.filter(
+            (metric) => getStatus(metric).className === "achieved",
+          ).length;
+
+          document.getElementById("metric-count").textContent =
+            validMetrics.length;
+
+          document.getElementById("pillar-count").textContent = pillars.size;
+
+          document.getElementById("targets-achieved").textContent =
+            `${achievedCount}/${validMetrics.length}`;
+
+          if (validMetrics.length === 0) {
+            container.innerHTML = `
+              <div class="card message">
+                No valid metrics found in metrics.csv.
+              </div>
+            `;
+            return;
+          }
+
+          // Every CSV row is rendered according to its SCOR pillar
+          container.innerHTML = validMetrics.map(renderMetric).join("");
+        } catch (error) {
+          console.error("Dashboard loading error:", error);
+
+          container.innerHTML = `
+            <div class="card warning">
+              Unable to load dashboard data. Confirm that metrics.csv
+              is in the same folder as this page.
+            </div>
+          `;
+        }
+      }
+
+      loadDashboard();
+    </script>
+  </body>
+</html>
+```
+
+```html
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Grain Delivery Forecast for Redwood County MN</title>
+    <style>
+      :root {
+        --fg: #09090b;
+        --muted: #71717a;
+        --line: #e4e4e7;
+        --bg: #fff;
+        --bad: #dc2626;
+        --good: #18181b;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        font:
+          14px/1.5 system-ui,
+          sans-serif;
+        color: var(--fg);
+        background: var(--bg);
+        margin: 0;
+        padding: 24px;
+      }
+
+      main {
+        max-width: 720px;
+        margin: 0 auto;
+      }
+
+      h1 {
+        font-size: 22px;
+        line-height: 1.35;
+        margin: 0 0 8px;
+      }
+      p {
+        margin: 0;
+        color: var(--muted);
+      }
+
+      .card {
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        padding: 20px;
+        margin-top: 16px;
+      }
+
+      .verdict {
+        font-size: 18px;
+        font-weight: 600;
+      }
+      .row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 8px;
+      }
+
+      .status {
+        font-size: 12px;
+        color: var(--muted);
+        margin-top: 8px;
+      }
+
+      .warning {
+        color: var(--bad);
+        margin-top: 8px;
+      }
+
+      input[type="range"] {
+        width: 100%;
+        accent-color: var(--fg);
+      }
+
+      .chart {
+        position: relative;
+        display: flex;
+        align-items: flex-end;
+        gap: 4px;
+        height: 160px;
+        border-bottom: 1px solid var(--line);
+        margin-top: 8px;
+      }
+
+      .col {
+        flex: 1;
+        display: flex;
+        align-items: flex-end;
+        height: 100%;
+        min-width: 0;
+      }
+
+      .bar {
+        width: 100%;
+        min-height: 2px;
+        background: var(--good);
+        border-radius: 3px 3px 0 0;
+      }
+
+      .bar.over {
+        background: var(--bad);
+      }
+
+      .line {
+        position: absolute;
+        left: 0;
+        right: 0;
+        border-top: 1px dashed var(--muted);
+        pointer-events: none;
+      }
+
+      .labels {
+        display: flex;
+        gap: 4px;
+        margin-top: 6px;
+        text-align: center;
+        font-size: 11px;
+        color: var(--muted);
+      }
+
+      .labels div {
+        flex: 1;
+        min-width: 0;
+      }
+
+      .legend {
+        display: flex;
+        gap: 16px;
+        margin-top: 12px;
+        font-size: 12px;
+        color: var(--muted);
+      }
+
+      .dot {
+        display: inline-block;
+        width: 8px;
+        height: 8px;
+        border-radius: 2px;
+        margin-right: 6px;
+      }
+
+      .delay-list {
+        margin-top: 12px;
+        color: var(--muted);
+        font-size: 13px;
+      }
+
+      button {
+        border: 1px solid var(--line);
+        background: white;
+        color: var(--fg);
+        border-radius: 6px;
+        padding: 6px 10px;
+        cursor: pointer;
+        font: inherit;
+      }
+
+      button:hover {
+        background: #f4f4f5;
+      }
+
+      @media (max-width: 480px) {
+        body {
+          padding: 16px;
+        }
+        .card {
+          padding: 16px;
+        }
+        .chart {
+          gap: 2px;
+        }
+        .labels {
+          font-size: 9px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <main>
+      <h1>
+        Is the next 14 days good weather for grain deliveries in Redwood County,
+        or should we expect rain delays?
+      </h1>
+      <p id="today"></p>
+
+      <div class="card">
+        <div class="verdict" id="verdict">Loading forecast...</div>
+        <p id="detail"></p>
+        <p class="status" id="status">Connecting to Open-Meteo...</p>
+        <p class="warning" id="warning" hidden></p>
+      </div>
+
+      <div class="card">
+        <div class="row">
+          <label for="t">Rain delay threshold</label>
+          <strong id="tval">0.10 in</strong>
+        </div>
+        <input id="t" type="range" min="0" max="0.6" step="0.01" value="0.10" />
+        <p style="font-size: 12px">
+          A day with more rain than this counts as a potential delay day.
+        </p>
+      </div>
+
+      <div class="card">
+        <div class="row"><strong>Daily rainfall (inches)</strong></div>
+        <div class="chart" id="chart"></div>
+        <div class="labels" id="labels"></div>
+        <div class="legend">
+          <span
+            ><span class="dot" style="background: var(--good)"></span>Good
+            day</span
+          >
+          <span
+            ><span class="dot" style="background: var(--bad)"></span>Above
+            threshold</span
+          >
+        </div>
+        <div class="delay-list" id="delays"></div>
+      </div>
+    </main>
+
+    <script>
+      const API =
+        "https://api.open-meteo.com/v1/forecast?latitude=44.54&longitude=-95.12&daily=precipitation_sum,temperature_2m_max,temperature_2m_min&forecast_days=14&timezone=America%2FChicago&precipitation_unit=inch&temperature_unit=fahrenheit";
+
+      const TIME_ZONE = "America/Chicago";
+      const DOWNLOAD_DATE = "2026-11-12";
+      const CHART_TOP = 0.6;
+
+      const slider = document.getElementById("t");
+
+      // ME: Stores the weather data while the page is running
+      let weather = null;
+
+      function todayInCentral() {
+        return new Intl.DateTimeFormat("en-CA", {
+          timeZone: TIME_ZONE,
+          year: "numeric",
+          month: "2-digit",
+          day: "2-digit",
+        }).format(new Date());
+      }
+
+      function formatDate(day) {
+        return new Date(day + "T12:00:00").toLocaleDateString("en-US", {
+          timeZone: TIME_ZONE,
+          month: "short",
+          day: "numeric",
+        });
+      }
+
+      function validate(data) {
+        const d = data?.daily;
+
+        if (
+          !d ||
+          !Array.isArray(d.time) ||
+          !Array.isArray(d.precipitation_sum) ||
+          !Array.isArray(d.temperature_2m_max) ||
+          !Array.isArray(d.temperature_2m_min)
+        ) {
+          throw new Error("Missing daily weather fields.");
+        }
+
+        const length = d.time.length;
+
+        if (
+          length !== 14 ||
+          d.precipitation_sum.length !== length ||
+          d.temperature_2m_max.length !== length ||
+          d.temperature_2m_min.length !== length
+        ) {
+          throw new Error("Weather data must contain 14 matching days.");
+        }
+
+        for (let i = 0; i < length; i++) {
+          if (
+            !/^\d{4}-\d{2}-\d{2}$/.test(d.time[i]) ||
+            !Number.isFinite(d.precipitation_sum[i]) ||
+            d.precipitation_sum[i] < 0 ||
+            !Number.isFinite(d.temperature_2m_max[i]) ||
+            !Number.isFinite(d.temperature_2m_min[i])
+          ) {
+            throw new Error("Weather data contains invalid values.");
+          }
+        }
+
+        return d;
+      }
+
+      async function loadWeather() {
+        document.getElementById("today").textContent =
+          "Today: " + formatDate(todayInCentral()) + " · Redwood County, MN";
+
+        try {
+          // ME: Gets the weather data from the weather API
+          const response = await fetch(API);
+
+          if (!response.ok) throw new Error("API request failed.");
+
+          const data = await response.json();
+          weather = validate(data);
+
+          document.getElementById("status").textContent =
+            "Live forecast · Retrieved " +
+            new Date().toLocaleTimeString("en-US", {
+              timeZone: TIME_ZONE,
+              hour: "numeric",
+              minute: "2-digit",
+            }) +
+            " Central Time";
+
+          draw();
+        } catch (error) {
+          try {
+            const response = await fetch("./weather.json");
+
+            if (!response.ok) throw new Error("Fallback file unavailable.");
+
+            const data = await response.json();
+            weather = validate(data);
+
+            const first = weather.time[0];
+            const last = weather.time[weather.time.length - 1];
+            const age = Math.max(
+              0,
+              Math.floor(
+                (Date.parse(todayInCentral() + "T12:00:00Z") -
+                  Date.parse(DOWNLOAD_DATE + "T12:00:00Z")) /
+                  86400000,
+              ),
+            );
+
+            document.getElementById("status").textContent =
+              "Stored fallback data · Downloaded November 12, 2026";
+
+            document.getElementById("warning").hidden = false;
+            document.getElementById("warning").textContent =
+              `Live weather unavailable. Showing potentially stale data. ` +
+              `Stored forecast: ${formatDate(first)} – ${formatDate(last)}. ` +
+              `Download date: November 12, 2026 (${age} days old).`;
+
+            draw();
+          } catch (fallbackError) {
+            document.getElementById("verdict").textContent =
+              "Forecast unavailable.";
+            document.getElementById("detail").textContent =
+              "Neither live weather nor stored weather data could be loaded. " +
+              "Check your connection and try again.";
+            document.getElementById("status").textContent =
+              "Unable to load weather data.";
+            document.getElementById("warning").hidden = false;
+            document.getElementById("warning").textContent =
+              "No forecast is being displayed. No sample data was substituted.";
+          }
+        }
+      }
+
+      // ME: Uses the weather data to count rain delay days and update the chart
+      function draw() {
+        if (!weather) return;
+
+        const limit = Number(slider.value);
+        const d = weather;
+
+        document.getElementById("tval").textContent = limit.toFixed(2) + " in";
+
+        const bad = d.precipitation_sum.map((p) => p > limit);
+        const delays = bad.filter(Boolean).length;
+        const good = d.time.length - delays;
+
+        const chart = document.getElementById("chart");
+
+        chart.innerHTML =
+          d.precipitation_sum
+            .map(
+              (p, i) => `
+          <div class="col" title="${d.time[i]}: ${p.toFixed(3)} in · Low: ${d.temperature_2m_min[i]}°F · High: ${d.temperature_2m_max[i]}°F">
+            <div class="bar ${bad[i] ? "over" : ""}"
+              style="height:${Math.max(2, Math.min(p / CHART_TOP, 1) * 100)}%">
+            </div>
+          </div>
+        `,
+            )
+            .join("") +
+          `<div class="line" style="bottom:${Math.min(limit / CHART_TOP, 1) * 100}%"></div>`;
+
+        document.getElementById("labels").innerHTML = d.time
+          .map(
+            (day) => `
+          <div>${formatDate(day)}</div>
+        `,
+          )
+          .join("");
+
+        document.getElementById("verdict").textContent =
+          delays === 0
+            ? "Favorable delivery weather expected."
+            : delays <= 2
+              ? "Mostly favorable, with some potential delays."
+              : "Expect several potential rain delays.";
+
+        document.getElementById("detail").textContent =
+          `${good} of 14 days are at or below the rainfall threshold. ` +
+          `${delays} ${delays === 1 ? "day exceeds" : "days exceed"} it.`;
+
+        const delayDates = d.time.filter((day, i) => bad[i]);
+
+        document.getElementById("delays").textContent =
+          delays === 0
+            ? "No days currently exceed the selected threshold."
+            : "Potential delay dates: " + delayDates.map(formatDate).join(", ");
+      }
+
+      slider.addEventListener("input", draw);
+      loadWeather();
+    </script>
+  </body>
+</html>
+```
