@@ -1,0 +1,305 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>MCSS Storage Allocation Planning Capability</title>
+    <style>
+      :root {
+        --fg: #09090b;
+        --muted: #71717a;
+        --line: #e4e4e7;
+        --bg: #fff;
+        --soft: #f4f4f5;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        padding: 24px;
+        background: var(--bg);
+        color: var(--fg);
+        font:
+          14px/1.6 system-ui,
+          sans-serif;
+      }
+
+      main {
+        max-width: 720px;
+        margin: 0 auto;
+      }
+
+      a {
+        color: inherit;
+        text-underline-offset: 3px;
+      }
+
+      .eyebrow {
+        color: var(--muted);
+        font-size: 12px;
+        font-weight: 600;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+      }
+
+      h1 {
+        margin: 8px 0 12px;
+        font-size: 30px;
+        line-height: 1.2;
+        letter-spacing: -0.04em;
+      }
+
+      h2 {
+        margin: 0 0 12px;
+        font-size: 18px;
+        letter-spacing: -0.02em;
+      }
+
+      h3 {
+        margin: 0 0 6px;
+        font-size: 14px;
+      }
+
+      p {
+        margin: 0 0 12px;
+      }
+
+      .lead {
+        color: var(--muted);
+        font-size: 16px;
+        line-height: 1.6;
+      }
+
+      .section {
+        margin-top: 32px;
+      }
+
+      .card {
+        margin-top: 16px;
+        padding: 20px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+      }
+
+      .metrics {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 12px;
+        margin-top: 18px;
+      }
+
+      .metric {
+        min-width: 0;
+        padding: 16px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+      }
+
+      .metric strong {
+        display: block;
+        margin-bottom: 4px;
+        font-size: 25px;
+        line-height: 1.2;
+        letter-spacing: -0.04em;
+      }
+
+      .metric span {
+        display: block;
+        color: var(--muted);
+        font-size: 12px;
+      }
+
+      .note {
+        margin-top: 12px;
+        color: var(--muted);
+        font-size: 12px;
+      }
+
+      .steps {
+        display: grid;
+        gap: 12px;
+      }
+
+      .step {
+        padding-bottom: 12px;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .step:last-child {
+        padding-bottom: 0;
+        border-bottom: 0;
+      }
+
+      .step p {
+        color: var(--muted);
+      }
+
+      .callout {
+        padding: 16px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--soft);
+      }
+
+      .links {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 16px;
+        margin-top: 12px;
+      }
+
+      @media (max-width: 520px) {
+        body {
+          padding: 16px;
+        }
+
+        h1 {
+          font-size: 25px;
+        }
+
+        .metrics {
+          grid-template-columns: 1fr;
+        }
+
+        .metric strong {
+          font-size: 22px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <main>
+      <header>
+        <div class="eyebrow">PLAN · Storage Allocation Planning</div>
+        <h1>Know where your grain will fit before it arrives.</h1>
+        <p class="lead">
+          Minnesota Corn & Soybean Storage is developing a digital planning
+          process designed to assign incoming corn and soybeans to available
+          storage capacity within 30 minutes.
+        </p>
+      </header>
+
+      <section class="section">
+        <h2>The performance goal</h2>
+        <p>
+          Digital planning can reduce the time needed to determine where grain
+          should be stored. MHP, a Ukrainian agricultural company, reported
+          faster grain allocation planning after adopting Microsoft Azure.
+        </p>
+
+        <div class="metrics">
+          <div class="metric">
+            <strong>2 hours</strong>
+            <span>MHP before Azure</span>
+          </div>
+          <div class="metric">
+            <strong>15 min</strong>
+            <span>MHP after Azure</span>
+          </div>
+          <div class="metric">
+            <strong>30 min</strong>
+            <span>MCSS proposed target</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>How it works</h2>
+        <p>
+          This capability improves the flow of information, helping staff make
+          better decisions about the physical movement of grain.
+        </p>
+
+        <div class="card">
+          <div class="steps">
+            <div class="step">
+              <h3>1. Capture operating data</h3>
+              <p>
+                Record expected deliveries, crop type, estimated bushels,
+                delivery timing, current inventory, available bin capacity, and
+                storage requirements.
+              </p>
+            </div>
+
+            <div class="step">
+              <h3>2. Evaluate storage options</h3>
+              <p>
+                A digital tool compares incoming grain with available capacity
+                and identifies suitable storage locations.
+              </p>
+            </div>
+
+            <div class="step">
+              <h3>3. Review and assign</h3>
+              <p>
+                The storage planner or facility manager reviews recommendations,
+                resolves conflicts, and confirms assignments.
+              </p>
+            </div>
+
+            <div class="step">
+              <h3>4. Keep information current</h3>
+              <p>
+                Staff update inventory and capacity as grain arrives or leaves,
+                allowing future recommendations to reflect current conditions.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Real-world example: MHP</h2>
+        <p>
+          MHP uses Microsoft Azure, Power BI, and mathematical modeling to
+          allocate approximately 2 million tons of grain and oilseeds across
+          storage locations. Its planning considers storage capacity, field
+          proximity, processing needs, and logistics.
+        </p>
+        <p>
+          MHP reported that a grain allocation planning task that previously
+          took two hours took just 15 minutes after moving to Azure.
+        </p>
+        <p class="note">
+          Source: Microsoft customer story, February 7, 2024.
+          <a
+            href="https://www.microsoft.com/en/customers/story/1733785105332756550-mhp-azure-other-en-ukraine"
+            target="_blank"
+            rel="noopener noreferrer"
+            >Read the MHP case study</a
+          >.
+        </p>
+      </section>
+
+      <section class="section">
+        <h2>The trade-off: data accuracy</h2>
+        <div class="callout">
+          <p>
+            Digital recommendations depend on accurate inventory, bin capacity,
+            delivery estimates, and grain quality information. Outdated or
+            incorrect data can lead to poor storage assignments.
+          </p>
+          <p>
+            MCSS would manage this risk through regular inventory updates,
+            capacity checks, and staff review before confirming allocations.
+          </p>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Track our operating conditions</h2>
+        <p>
+          Weather forecasts help anticipate delivery delays and inform storage
+          planning.
+        </p>
+        <div class="links">
+          <a href="../data-page/">View Redwood County weather data</a>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>
