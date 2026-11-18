@@ -3565,3 +3565,7 @@ Amazing! Now, in each, I need to add a brief note just making sure they know the
   </body>
 </html>
 ```
+
+### Sixth Prompt Reflection
+
+It did not make it so that the link to our dashboard opened in a new tab. So I had to simply add it myself, making this commit: https://github.com/aidan-labs/minnesota-corn-soybean-storage/commit/731dbacf33efa92a019130daf50e7bcf70f7aae5
