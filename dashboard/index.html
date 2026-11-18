@@ -1,0 +1,585 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>MCSS Performance Dashboard</title>
+
+    <style>
+      :root {
+        --fg: #09090b;
+        --muted: #71717a;
+        --line: #e4e4e7;
+        --bg: #fff;
+        --bad: #dc2626;
+        --good: #18181b;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        font:
+          14px/1.5 system-ui,
+          sans-serif;
+        color: var(--fg);
+        background: var(--bg);
+        margin: 0;
+        padding: 24px;
+      }
+
+      main {
+        max-width: 720px;
+        margin: 0 auto;
+      }
+
+      h1 {
+        font-size: 22px;
+        line-height: 1.35;
+        margin: 0 0 8px;
+      }
+
+      h2 {
+        font-size: 16px;
+        margin: 0;
+      }
+
+      p {
+        margin: 0;
+        color: var(--muted);
+      }
+
+      .summary {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+        margin-top: 16px;
+      }
+
+      .card {
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        padding: 20px;
+        margin-top: 16px;
+      }
+
+      .summary .card {
+        margin-top: 0;
+        padding: 14px;
+      }
+
+      .summary-label {
+        font-size: 12px;
+        color: var(--muted);
+      }
+
+      .summary-value {
+        font-size: 20px;
+        font-weight: 600;
+        margin-top: 4px;
+      }
+
+      .section-title {
+        margin-top: 28px;
+      }
+
+      .metric-title {
+        font-size: 16px;
+        font-weight: 600;
+        line-height: 1.4;
+      }
+
+      .metric-meta {
+        font-size: 12px;
+        color: var(--muted);
+        margin-top: 4px;
+      }
+
+      .row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 8px;
+      }
+
+      .pillar {
+        flex-shrink: 0;
+        border: 1px solid var(--line);
+        border-radius: 6px;
+        padding: 3px 8px;
+        font-size: 11px;
+        color: var(--muted);
+      }
+
+      .values {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+        margin-top: 18px;
+      }
+
+      .value {
+        min-width: 0;
+        border: 1px solid var(--line);
+        border-radius: 6px;
+        padding: 12px;
+      }
+
+      .value.target {
+        border-color: var(--fg);
+      }
+
+      .value-label {
+        font-size: 12px;
+        color: var(--muted);
+        margin-bottom: 6px;
+      }
+
+      .value-number {
+        font-size: 20px;
+        font-weight: 600;
+        overflow-wrap: anywhere;
+      }
+
+      .value-unit {
+        font-size: 12px;
+        color: var(--muted);
+        font-weight: 400;
+      }
+
+      .metric-footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-top: 16px;
+        padding-top: 12px;
+        border-top: 1px solid var(--line);
+      }
+
+      .status {
+        font-size: 12px;
+        color: var(--muted);
+      }
+
+      .status.achieved {
+        color: var(--good);
+        font-weight: 600;
+      }
+
+      .status.not-achieved {
+        color: var(--bad);
+        font-weight: 600;
+      }
+
+      .source-link {
+        color: var(--fg);
+        font-size: 12px;
+        text-decoration: underline;
+        text-underline-offset: 2px;
+      }
+
+      .source-date {
+        color: var(--muted);
+        font-size: 12px;
+      }
+
+      .message {
+        color: var(--muted);
+        font-size: 13px;
+      }
+
+      .warning {
+        color: var(--bad);
+        margin-top: 8px;
+      }
+
+      @media (max-width: 480px) {
+        body {
+          padding: 16px;
+        }
+
+        .summary {
+          grid-template-columns: 1fr;
+        }
+
+        .card {
+          padding: 16px;
+        }
+
+        .values {
+          gap: 6px;
+        }
+
+        .value {
+          padding: 9px;
+        }
+
+        .value-number {
+          font-size: 17px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <main>
+      <h1>Minnesota Corn & Soybean Storage</h1>
+      <p>Performance Dashboard · OPMT 375 Final Project</p>
+
+      <div class="summary">
+        <div class="card">
+          <div class="summary-label">Total metrics</div>
+          <div class="summary-value" id="metric-count">—</div>
+        </div>
+
+        <div class="card">
+          <div class="summary-label">SCOR pillars</div>
+          <div class="summary-value" id="pillar-count">—</div>
+        </div>
+
+        <div class="card">
+          <div class="summary-label">Targets achieved</div>
+          <div class="summary-value" id="targets-achieved">—</div>
+        </div>
+      </div>
+
+      <h2 class="section-title">Performance Metrics</h2>
+
+      <div id="metrics">
+        <div class="card message">Loading dashboard data...</div>
+      </div>
+    </main>
+
+    <script>
+      const CSV_PATH = "./metrics.csv";
+
+      function parseCSV(text) {
+        const rows = [];
+        let row = [];
+        let field = "";
+        let insideQuotes = false;
+
+        for (let i = 0; i < text.length; i++) {
+          const char = text[i];
+          const next = text[i + 1];
+
+          if (char === '"' && insideQuotes && next === '"') {
+            field += '"';
+            i++;
+          } else if (char === '"') {
+            insideQuotes = !insideQuotes;
+          } else if (char === "," && !insideQuotes) {
+            row.push(field.trim());
+            field = "";
+          } else if ((char === "\n" || char === "\r") && !insideQuotes) {
+            if (char === "\r" && next === "\n") i++;
+
+            row.push(field.trim());
+
+            if (row.some((cell) => cell !== "")) {
+              rows.push(row);
+            }
+
+            row = [];
+            field = "";
+          } else {
+            field += char;
+          }
+        }
+
+        row.push(field.trim());
+
+        if (row.some((cell) => cell !== "")) {
+          rows.push(row);
+        }
+
+        if (rows.length < 2) return [];
+
+        const headers = rows[0].map((header) =>
+          header.replace(/^\uFEFF/, "").trim(),
+        );
+
+        return rows.slice(1).map((values) => {
+          const record = {};
+
+          headers.forEach((header, index) => {
+            record[header] = values[index] ?? "";
+          });
+
+          return record;
+        });
+      }
+
+      function escapeHTML(value) {
+        return String(value ?? "").replace(
+          /[&<>"']/g,
+          (char) =>
+            ({
+              "&": "&amp;",
+              "<": "&lt;",
+              ">": "&gt;",
+              '"': "&quot;",
+              "'": "&#39;",
+            })[char],
+        );
+      }
+
+      function isValidNumber(value) {
+        return value !== "" && Number.isFinite(Number(value));
+      }
+
+      function formatNumber(value) {
+        if (!isValidNumber(value)) {
+          return escapeHTML(value || "—");
+        }
+
+        const number = Number(value);
+
+        return Number.isInteger(number)
+          ? number.toLocaleString()
+          : number.toLocaleString(undefined, {
+              maximumFractionDigits: 2,
+            });
+      }
+
+      // PLAN metric display
+      function renderPLAN(metric) {
+        const status = getStatus(metric);
+        const improvement = getImprovement(metric);
+        const unit = escapeHTML(metric.unit || "");
+        const sourceURL = metric.source_url || "";
+
+        const sourceLink = /^https?:\/\//i.test(sourceURL)
+          ? `<a class="source-link"
+               href="${escapeHTML(sourceURL)}"
+               target="_blank"
+               rel="noopener noreferrer">View source</a>`
+          : `<span class="source-date">Source not provided</span>`;
+
+        return `
+          <div class="card">
+            <div class="row">
+              <div>
+                <div class="metric-title">
+                  ${escapeHTML(metric.metric || "Untitled metric")}
+                </div>
+                <div class="metric-meta">
+                  ${escapeHTML(metric.owner || "")}
+                  ${
+                    metric.real_company
+                      ? " · " + escapeHTML(metric.real_company)
+                      : ""
+                  }
+                </div>
+              </div>
+
+              <span class="pillar">PLAN</span>
+            </div>
+
+            <div class="values">
+              <div class="value">
+                <div class="value-label">MHP Before Azure</div>
+                <div class="value-number">
+                  ${formatNumber(metric.incumbent_value)}
+                  <span class="value-unit">${unit}</span>
+                </div>
+              </div>
+
+              <div class="value">
+                <div class="value-label">MHP After Azure</div>
+                <div class="value-number">
+                  ${formatNumber(metric.our_value)}
+                  <span class="value-unit">${unit}</span>
+                </div>
+              </div>
+
+              <div class="value target">
+                <div class="value-label">MCSS Target</div>
+                <div class="value-number">
+                  ${formatNumber(metric.target)}
+                  <span class="value-unit">${unit}</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="metric-footer">
+              <div>
+                <span class="status ${status.className}">
+                  ${status.label}
+                </span>
+
+                ${
+                  improvement !== null
+                    ? `<span class="status">
+                        · ${improvement.toFixed(1)}% improvement over MHP baseline
+                      </span>`
+                    : ""
+                }
+              </div>
+
+              <div>
+                ${sourceLink}
+                ${
+                  metric.as_of
+                    ? `<span class="source-date">
+                        · ${escapeHTML(metric.as_of)}
+                      </span>`
+                    : ""
+                }
+              </div>
+            </div>
+          </div>
+        `;
+      }
+
+      // Add additional pillar-specific functions as teammates complete them
+      function renderMetric(metric) {
+        const pillar = (metric.pillar || "").trim().toUpperCase();
+
+        if (pillar === "PLAN") {
+          return renderPLAN(metric);
+        } else if (pillar === "SOURCE") {
+          // return renderSOURCE(metric);
+        } else if (pillar === "MAKE") {
+          // return renderMAKE(metric);
+        } else if (pillar === "DELIVER") {
+          // return renderDELIVER(metric);
+        } else if (pillar === "RETURN") {
+          // return renderRETURN(metric);
+        } else {
+          return `
+            <div class="card">
+              <div class="row">
+                <strong>
+                  ${escapeHTML(metric.metric || "Untitled metric")}
+                </strong>
+                <span class="pillar">
+                  ${escapeHTML(pillar || "OTHER")}
+                </span>
+              </div>
+              <p class="message">
+                A display for this pillar has not been added yet.
+              </p>
+            </div>
+          `;
+        }
+      }
+
+      function getStatus(metric) {
+        if (!isValidNumber(metric.our_value) || !isValidNumber(metric.target)) {
+          return {
+            className: "",
+            label: "Status unavailable",
+          };
+        }
+
+        const lowerIsBetter = /time|cycle|cost|error|defect|delay|waste/i.test(
+          metric.metric || "",
+        );
+
+        const achieved = lowerIsBetter
+          ? Number(metric.our_value) <= Number(metric.target)
+          : Number(metric.our_value) >= Number(metric.target);
+
+        return achieved
+          ? {
+              className: "achieved",
+              label: "Target achieved",
+            }
+          : {
+              className: "not-achieved",
+              label: "Target not achieved",
+            };
+      }
+
+      function getImprovement(metric) {
+        if (
+          !isValidNumber(metric.incumbent_value) ||
+          !isValidNumber(metric.our_value)
+        ) {
+          return null;
+        }
+
+        const baseline = Number(metric.incumbent_value);
+        const current = Number(metric.our_value);
+
+        if (baseline === 0) return null;
+
+        const lowerIsBetter = /time|cycle|cost|error|defect|delay|waste/i.test(
+          metric.metric || "",
+        );
+
+        const result = lowerIsBetter
+          ? ((baseline - current) / Math.abs(baseline)) * 100
+          : ((current - baseline) / Math.abs(baseline)) * 100;
+
+        return Number.isFinite(result) ? result : null;
+      }
+
+      async function loadDashboard() {
+        const container = document.getElementById("metrics");
+
+        try {
+          // ME: Loads all team members performance metrics from the shared CSV file
+          const response = await fetch(CSV_PATH, {
+            cache: "no-store",
+          });
+
+          if (!response.ok) {
+            throw new Error(`Could not load metrics.csv (${response.status})`);
+          }
+
+          const csvText = await response.text();
+          const metrics = parseCSV(csvText);
+
+          const validMetrics = metrics.filter(
+            (metric) => metric.metric && metric.pillar,
+          );
+
+          const pillars = new Set(
+            validMetrics.map((metric) => metric.pillar.trim().toUpperCase()),
+          );
+
+          const achievedCount = validMetrics.filter(
+            (metric) => getStatus(metric).className === "achieved",
+          ).length;
+
+          document.getElementById("metric-count").textContent =
+            validMetrics.length;
+
+          document.getElementById("pillar-count").textContent = pillars.size;
+
+          document.getElementById("targets-achieved").textContent =
+            `${achievedCount}/${validMetrics.length}`;
+
+          if (validMetrics.length === 0) {
+            container.innerHTML = `
+              <div class="card message">
+                No valid metrics found in metrics.csv.
+              </div>
+            `;
+            return;
+          }
+
+          // Every CSV row is rendered according to its SCOR pillar
+          container.innerHTML = validMetrics.map(renderMetric).join("");
+        } catch (error) {
+          console.error("Dashboard loading error:", error);
+
+          container.innerHTML = `
+            <div class="card warning">
+              Unable to load dashboard data. Confirm that metrics.csv
+              is in the same folder as this page.
+            </div>
+          `;
+        }
+      }
+
+      loadDashboard();
+    </script>
+  </body>
+</html>
