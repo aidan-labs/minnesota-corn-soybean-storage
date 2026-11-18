@@ -1,2 +1,2 @@
-pillar,student,metric,unit,incumbent_value,our_value,target,company,source_url,source_date
+pillar,owner,metric,unit,incumbent_value,our_value,target,real_company,source_url,as_of
 PLAN,Aidan D.,Grain Storage Allocation Planning Cycle Time,hours,2,0.25,0.5,MHP,https://www.microsoft.com/en/customers/story/1733785105332756550-mhp-azure-other-en-ukraine,2024-02-07
