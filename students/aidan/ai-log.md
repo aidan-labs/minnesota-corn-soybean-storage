@@ -767,3 +767,27 @@ Okay... Get rid of `Loaded 1 metric` on the page, that is a given by cards at th
 ### Second Prompt Reflection
 
 It did good enough. I decied to not have the file try and magically guess every metric senario for what my group members end up putting in the CSV file, so that is why I asked that in the second prompt. It even kept the style consistent with my data page I gave it as example, which was nice. No problems, just catching things I did not prompt clearly enough.
+
+### Third Prompt
+
+Create my PLAN pillar capability page for me, I will place it in `students/aidan/index.html`.
+
+Follow the assignment's six required elements exactly:
+
+1. **The claim:** Know where your grain will fit before it arrives.
+2. **The proof:** Use the same PLAN display metrics already established on our SCOR dashboard and how we displayed it.
+3. **How it works:** Explain the digital system behind the capability in plain language. Identify which supply chain flow it improves (goods, money, or information), what data it captures, and who acts on it.
+4. **Real-world example:** Use MHP exactly as the example:
+   - MHP uses Microsoft Azure, Power BI, and mathematical modeling to allocate approximately 2 million tons of grain and oilseeds across storage locations. Its planning considers storage capacity, field proximity, processing needs, and logistics.
+   - MHP reported that a grain allocation planning task that previously took two hours took just 15 minutes after moving to Azure.
+   - Source: Microsoft customer story, February 7, 2024. Include a link to the [MHP case study](https://www.microsoft.com/en/customers/story/1733785105332756550-mhp-azure-other-en-ukraine).
+5. **The new constraint:** Use this content:
+   - **The trade-off: data accuracy**
+   - Digital recommendations depend on accurate inventory, bin capacity, delivery estimates, and grain quality information. Outdated or incorrect data can lead to poor storage assignments.
+   - MCSS would manage this risk through regular inventory updates, capacity checks, and staff review before confirming allocations.
+6. **Your signal:** Include this content and link:
+   - **Track our operating conditions**
+   - Weather forecasts help anticipate delivery delays and inform storage planning.
+   - Link to `../data-page/index.html` with the text "View Redwood County weather data".
+
+Keep the page concise and buyer-focused. Preserve the existing website's visual style and styling conventions. Do not add unnecessary navigation, breadcrumbs, footers, disclaimers, or extra sections. Only include what is required by the six assignment elements.
