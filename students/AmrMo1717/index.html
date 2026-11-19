@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MCSS | Minnesota Corn Production</title>
+  <!-- Source: USDA NASS, Minnesota Ag News – 2023 Corn County Estimates.
+       https://www.nass.usda.gov/Statistics_by_State/Minnesota/Publications/County_Estimates/2024/MN-CtyEst-Corn-02-24.pdf
+       Report published February 23, 2024. Data file downloaded November 17, 2026. -->
+  <style>
+    :root{color-scheme:light;--ink:#171b18;--muted:#68736b;--line:#e3e8e3;--paper:#fff;--soft:#f5f8f5;--green:#26734a;--green2:#dcefe2;--amber:#a46718}
+    *{box-sizing:border-box}body{margin:0;background:#f7f9f7;color:var(--ink);font:15px/1.5 system-ui,-apple-system,Segoe UI,sans-serif}
+    main{max-width:1050px;margin:0 auto;padding:36px 22px 52px}.eyebrow{font-size:12px;letter-spacing:.12em;font-weight:700;color:var(--green);text-transform:uppercase;margin:0 0 9px}
+    h1{font-size:clamp(27px,4vw,40px);line-height:1.12;margin:0 0 12px;letter-spacing:-.035em}.intro{max-width:760px;color:var(--muted);margin:0}
+    .sourcebar{display:flex;flex-wrap:wrap;gap:8px 18px;margin-top:18px;font-size:12px;color:var(--muted)}a{color:var(--green)}
+    .panel{background:var(--paper);border:1px solid var(--line);border-radius:13px;padding:20px;margin-top:20px;box-shadow:0 2px 8px #152d1810}
+    .filters{display:grid;grid-template-columns:1fr 1fr;gap:14px}.field label{display:block;font-size:12px;font-weight:700;color:var(--muted);margin-bottom:6px}
+    select{width:100%;background:#fff;border:1px solid var(--line);border-radius:8px;padding:10px;font:inherit;color:var(--ink)}
+    .metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.metric{background:var(--soft);border:1px solid var(--line);border-radius:10px;padding:15px}.metric span{display:block;color:var(--muted);font-size:12px}.metric strong{display:block;font-size:clamp(20px,3vw,27px);letter-spacing:-.03em;margin-top:3px}
+    h2{font-size:18px;margin:0 0 4px}.sub{font-size:13px;color:var(--muted);margin:0 0 17px}.chart{display:grid;gap:10px}.barrow{display:grid;grid-template-columns:125px 1fr 105px;gap:10px;align-items:center;font-size:13px}.county{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.track{height:13px;border-radius:20px;background:#edf1ed;overflow:hidden}.bar{height:100%;border-radius:20px;background:var(--green)}.value{text-align:right;font-variant-numeric:tabular-nums;color:#3d4941}
+    .callout{border-left:3px solid var(--green);background:var(--soft);padding:12px 14px;border-radius:0 8px 8px 0;color:#405047;font-size:13px;margin-top:17px}
+    .tablewrap{overflow-x:auto}table{border-collapse:collapse;width:100%;font-size:13px}th,td{padding:10px 9px;border-bottom:1px solid var(--line);text-align:left;white-space:nowrap}th{color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.06em}td.num{text-align:right;font-variant-numeric:tabular-nums}
+    .status{font-size:12px;color:var(--muted);margin-top:13px}.warning{color:var(--amber)}.hidden{display:none}.foot{font-size:12px;color:var(--muted);margin-top:20px}
+    @media(max-width:650px){main{padding:26px 14px 40px}.filters,.metrics{grid-template-columns:1fr}.barrow{grid-template-columns:95px 1fr 86px;gap:7px;font-size:12px}.panel{padding:15px}}
+  </style>
+</head>
+<body>
+<main>
+  <p class="eyebrow">Minnesota Corn &amp; Soybean Storage · Operations intelligence</p>
+  <h1>Which Minnesota counties should MCSS evaluate first for corn storage?</h1>
+  <p class="intro">Compare published county-level corn-for-grain production to identify areas that may merit further storage-location research. Production is one demand signal, not a complete site-selection decision.</p>
+  <div class="sourcebar"><span>USDA NASS · Minnesota county estimates</span><span>Crop years: 2022–2023</span><span>Stored data snapshot: November 17, 2026</span></div>
+
+  <section class="panel">
+    <div class="filters">
+      <div class="field"><label for="year">Crop year</label><select id="year"><option value="2023">2023</option><option value="2022">2022</option></select></div>
+      <div class="field"><label for="county">County</label><select id="county"><option value="all">All counties (ranked)</option></select></div>
+    </div>
+  </section>
+
+  <section class="panel">
+    <div class="metrics">
+      <div class="metric"><span>Top published county</span><strong id="topCounty">—</strong></div>
+      <div class="metric"><span>Production in top county</span><strong id="topValue">—</strong></div>
+      <div class="metric"><span>Counties with published estimates</span><strong id="countyCount">—</strong></div>
+    </div>
+  </section>
+
+  <section class="panel">
+    <h2 id="chartTitle">Top counties by corn production</h2>
+    <p class="sub">County production, bushels. Select a county above to isolate its value.</p>
+    <div id="chart" class="chart" aria-live="polite"></div>
+    <p id="interpretation" class="callout"></p>
+    <p id="status" class="status">Loading stored USDA data…</p>
+    <p id="error" class="status warning hidden"></p>
+  </section>
+
+  <section class="panel">
+    <h2>County data</h2>
+    <p class="sub">Only counties with a published individual estimate are ranked. No county-specific estimate is shown where USDA used a dash; the report footnote explains these entries may be grouped under “Other counties” or represent zero.</p>
+    <div class="tablewrap"><table><thead><tr><th>Rank</th><th>County</th><th>USDA district</th><th style="text-align:right">Production (bushels)</th></tr></thead><tbody id="rows"></tbody></table></div>
+  </section>
+  <p class="foot">Source: <a href="https://www.nass.usda.gov/Statistics_by_State/Minnesota/Publications/County_Estimates/2024/MN-CtyEst-Corn-02-24.pdf" target="_blank" rel="noreferrer">USDA NASS, 2023 Corn County Estimates (published February 23, 2024)</a>. “Other counties” and Minnesota totals are aggregates, not individual counties, and are excluded. This dashboard does not include soybeans, facility capacity, freight costs, customer commitments, or current inventories.</p>
+</main>
+<script>
+  const DATA_FILE = "./corn-production.json";
+  const number = new Intl.NumberFormat("en-US");
+  let productionData = null;
+
+  // ME: This is where the page brings in the saved USDA data file from this folder.
+  async function loadData() {
+    try {
+      const response = await fetch(DATA_FILE);
+      if (!response.ok) throw new Error(`Could not load corn-production.json (${response.status}).`);
+      const incoming = await response.json();
+      if (!incoming || !Array.isArray(incoming.records) || incoming.records.length === 0) {
+        throw new Error("The saved data file is missing its county records.");
+      }
+      for (const record of incoming.records) {
+        if (typeof record.county !== "string" || !record.county ||
+            typeof record.district !== "string" ||
+            ![record.production_2022, record.production_2023].every(v => v === null || (Number.isFinite(v) && v >= 0))) {
+          throw new Error("The data file contains an invalid county record.");
+        }
+      }
+      // ME: The downloaded JSON is kept here in memory while the webpage is open.
+      productionData = incoming;
+      populateCountyFilter();
+      render();
+      document.getElementById("status").textContent = `Loaded ${incoming.records.length} county records from the stored USDA snapshot (downloaded ${incoming.downloaded_on}).`;
+    } catch (error) {
+      document.getElementById("status").textContent = "The saved data could not be loaded.";
+      document.getElementById("error").textContent = `${error.message} When testing locally, run this folder through VS Code Live Server or another local web server; browsers often block JSON fetches from file:// pages.`;
+      document.getElementById("error").classList.remove("hidden");
+    }
+  }
+
+  function populateCountyFilter() {
+    const select = document.getElementById("county");
+    const names = productionData.records.map(r => r.county).sort((a,b) => a.localeCompare(b));
+    select.innerHTML = '<option value="all">All counties (ranked)</option>' + names.map(name => `<option value="${escapeHtml(name)}">${escapeHtml(name)}</option>`).join("");
+  }
+
+  function escapeHtml(value) {
+    return value.replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+  }
+
+  // ME: This function changes the view by filtering to the selected year/county, sorting values, and drawing the chart and table.
+  function render() {
+    if (!productionData) return;
+    const year = document.getElementById("year").value;
+    const selectedCounty = document.getElementById("county").value;
+    const field = `production_${year}`;
+    const allPublished = productionData.records
+      .filter(record => record[field] !== null)
+      .sort((a,b) => b[field] - a[field]);
+    const visible = selectedCounty === "all"
+      ? allPublished
+      : allPublished.filter(record => record.county === selectedCounty);
+    const top = allPublished[0];
+
+    document.getElementById("topCounty").textContent = top ? top.county : "—";
+    document.getElementById("topValue").textContent = top ? `${(top[field]/1e6).toFixed(2)}M` : "—";
+    document.getElementById("countyCount").textContent = `${allPublished.length} / ${productionData.records.length}`;
+    document.getElementById("chartTitle").textContent = selectedCounty === "all" ? `Top 12 counties · ${year}` : `${selectedCounty} · ${year}`;
+
+    const chartRecords = selectedCounty === "all" ? visible.slice(0,12) : visible;
+    const max = Math.max(1, ...chartRecords.map(r => r[field]));
+    const chart = document.getElementById("chart");
+    chart.innerHTML = chartRecords.length ? chartRecords.map(record => `
+      <div class="barrow">
+        <span class="county" title="${escapeHtml(record.county)}">${escapeHtml(record.county)}</span>
+        <div class="track"><div class="bar" style="width:${(record[field]/max*100).toFixed(1)}%"></div></div>
+        <span class="value">${number.format(record[field])}</span>
+      </div>`).join("") : '<p class="status">No published estimate for this county in the selected year.</p>';
+
+    const tableRows = selectedCounty === "all" ? visible : productionData.records.filter(r => r.county === selectedCounty);
+    document.getElementById("rows").innerHTML = tableRows.map(record => {
+      const rank = allPublished.findIndex(r => r.county === record.county) + 1;
+      const value = record[field] === null ? "No individual estimate" : number.format(record[field]);
+      return `<tr><td>${record[field] === null ? "—" : rank}</td><td>${escapeHtml(record.county)}</td><td>${escapeHtml(record.district)}</td><td class="num">${value}</td></tr>`;
+    }).join("");
+
+    if (selectedCounty === "all" && top) {
+      document.getElementById("interpretation").textContent = `${top.county} had the highest published corn-for-grain production in ${year}, at ${number.format(top[field])} bushels. Consider it a candidate for further evaluation; also compare storage capacity, road/rail access, competing elevators, farmer demand, and transportation costs before making a location decision.`;
+    } else if (visible[0]) {
+      const record = visible[0];
+      document.getElementById("interpretation").textContent = `${record.county} reported ${number.format(record[field])} bushels of corn for grain in ${year}. This production figure is a useful demand indicator, not a measure of grain available to MCSS or a guarantee of storage demand.`;
+    } else {
+      document.getElementById("interpretation").textContent = `${selectedCounty} has no individual county estimate shown for ${year}. The USDA footnote says dash-marked entries may be grouped under “Other counties” or may represent zero; this page does not assume zero.`;
+    }
+  }
+
+  document.getElementById("year").addEventListener("change", render);
+  document.getElementById("county").addEventListener("change", render);
+  loadData();
+</script>
+</body>
+</html>

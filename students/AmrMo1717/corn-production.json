@@ -1,0 +1,484 @@
+{
+  "source": "USDA National Agricultural Statistics Service (NASS), Minnesota Ag News \u2013 2023 Corn County Estimates",
+  "source_url": "https://www.nass.usda.gov/Statistics_by_State/Minnesota/Publications/County_Estimates/2024/MN-CtyEst-Corn-02-24.pdf",
+  "report_date": "2024-02-23",
+  "downloaded_on": "2026-11-17",
+  "commodity": "Corn for grain",
+  "unit": "bushels",
+  "notes": [
+    "Values are county-level corn-for-grain production, not corn silage.",
+    "A null value means no individual county estimate is shown. The USDA footnote says dash-marked values did not meet publication standards and are included in Other counties, or represent zero; the dashboard does not assume zero.",
+    "The report's 'Other counties' and Minnesota statewide totals are excluded from county rankings.",
+    "The report covers crop years 2022 and 2023."
+  ],
+  "records": [
+    {
+      "county": "Becker",
+      "district": "Northwest",
+      "production_2022": 10334000,
+      "production_2023": 12997000
+    },
+    {
+      "county": "Clay",
+      "district": "Northwest",
+      "production_2022": null,
+      "production_2023": 26823000
+    },
+    {
+      "county": "Mahnomen",
+      "district": "Northwest",
+      "production_2022": 6047000,
+      "production_2023": 8930000
+    },
+    {
+      "county": "Marshall",
+      "district": "Northwest",
+      "production_2022": 3167000,
+      "production_2023": 10074000
+    },
+    {
+      "county": "Norman",
+      "district": "Northwest",
+      "production_2022": null,
+      "production_2023": 20231000
+    },
+    {
+      "county": "Polk",
+      "district": "Northwest",
+      "production_2022": 13722000,
+      "production_2023": 19112000
+    },
+    {
+      "county": "Red Lake",
+      "district": "Northwest",
+      "production_2022": 3126000,
+      "production_2023": 4646000
+    },
+    {
+      "county": "Beltrami",
+      "district": "North Central",
+      "production_2022": 390000,
+      "production_2023": null
+    },
+    {
+      "county": "Cass",
+      "district": "North Central",
+      "production_2022": 360000,
+      "production_2023": 375000
+    },
+    {
+      "county": "Hubbard",
+      "district": "North Central",
+      "production_2022": 1025000,
+      "production_2023": null
+    },
+    {
+      "county": "Itasca",
+      "district": "North Central",
+      "production_2022": 97400,
+      "production_2023": null
+    },
+    {
+      "county": "Koochiching",
+      "district": "North Central",
+      "production_2022": 45000,
+      "production_2023": null
+    },
+    {
+      "county": "Big Stone",
+      "district": "West Central",
+      "production_2022": 14962000,
+      "production_2023": 20390000
+    },
+    {
+      "county": "Chippewa",
+      "district": "West Central",
+      "production_2022": 27219000,
+      "production_2023": 28358000
+    },
+    {
+      "county": "Douglas",
+      "district": "West Central",
+      "production_2022": 12659000,
+      "production_2023": null
+    },
+    {
+      "county": "Grant",
+      "district": "West Central",
+      "production_2022": 21937000,
+      "production_2023": 25505000
+    },
+    {
+      "county": "Lac qui Parle",
+      "district": "West Central",
+      "production_2022": null,
+      "production_2023": 33304000
+    },
+    {
+      "county": "Otter Tail",
+      "district": "West Central",
+      "production_2022": 28428000,
+      "production_2023": 30791000
+    },
+    {
+      "county": "Pope",
+      "district": "West Central",
+      "production_2022": 19129000,
+      "production_2023": 23156000
+    },
+    {
+      "county": "Stevens",
+      "district": "West Central",
+      "production_2022": 17669000,
+      "production_2023": 25389000
+    },
+    {
+      "county": "Swift",
+      "district": "West Central",
+      "production_2022": 32931000,
+      "production_2023": 38808000
+    },
+    {
+      "county": "Traverse",
+      "district": "West Central",
+      "production_2022": 19640000,
+      "production_2023": 29606000
+    },
+    {
+      "county": "Wilkin",
+      "district": "West Central",
+      "production_2022": 18483000,
+      "production_2023": 18847000
+    },
+    {
+      "county": "Yellow Medicine",
+      "district": "West Central",
+      "production_2022": 34552000,
+      "production_2023": 35802000
+    },
+    {
+      "county": "Benton",
+      "district": "Central",
+      "production_2022": 7897000,
+      "production_2023": 7851000
+    },
+    {
+      "county": "Carver",
+      "district": "Central",
+      "production_2022": 9915000,
+      "production_2023": 9841000
+    },
+    {
+      "county": "Kandiyohi",
+      "district": "Central",
+      "production_2022": null,
+      "production_2023": 31125000
+    },
+    {
+      "county": "McLeod",
+      "district": "Central",
+      "production_2022": 20937000,
+      "production_2023": 20561000
+    },
+    {
+      "county": "Meeker",
+      "district": "Central",
+      "production_2022": 19856000,
+      "production_2023": 21856000
+    },
+    {
+      "county": "Morrison",
+      "district": "Central",
+      "production_2022": 15004000,
+      "production_2023": 11600000
+    },
+    {
+      "county": "Renville",
+      "district": "Central",
+      "production_2022": 52892000,
+      "production_2023": 54578000
+    },
+    {
+      "county": "Scott",
+      "district": "Central",
+      "production_2022": 5931000,
+      "production_2023": 6409000
+    },
+    {
+      "county": "Sherburne",
+      "district": "Central",
+      "production_2022": 5023000,
+      "production_2023": 4382000
+    },
+    {
+      "county": "Sibley",
+      "district": "Central",
+      "production_2022": 30692000,
+      "production_2023": 28081000
+    },
+    {
+      "county": "Stearns",
+      "district": "Central",
+      "production_2022": 29312000,
+      "production_2023": 37647000
+    },
+    {
+      "county": "Todd",
+      "district": "Central",
+      "production_2022": 10257000,
+      "production_2023": 9521000
+    },
+    {
+      "county": "Wadena",
+      "district": "Central",
+      "production_2022": 2814000,
+      "production_2023": 2423000
+    },
+    {
+      "county": "Wright",
+      "district": "Central",
+      "production_2022": 13355000,
+      "production_2023": 14015000
+    },
+    {
+      "county": "Aitkin",
+      "district": "East Central",
+      "production_2022": 118000,
+      "production_2023": 90900
+    },
+    {
+      "county": "Anoka",
+      "district": "East Central",
+      "production_2022": 657000,
+      "production_2023": null
+    },
+    {
+      "county": "Carlton",
+      "district": "East Central",
+      "production_2022": 13300,
+      "production_2023": 17300
+    },
+    {
+      "county": "Chisago",
+      "district": "East Central",
+      "production_2022": 4167000,
+      "production_2023": 4025000
+    },
+    {
+      "county": "Crow Wing",
+      "district": "East Central",
+      "production_2022": 1450000,
+      "production_2023": 1026000
+    },
+    {
+      "county": "Hennepin",
+      "district": "East Central",
+      "production_2022": 1705000,
+      "production_2023": null
+    },
+    {
+      "county": "Isanti",
+      "district": "East Central",
+      "production_2022": 4593000,
+      "production_2023": 4412000
+    },
+    {
+      "county": "Kanabec",
+      "district": "East Central",
+      "production_2022": 2329000,
+      "production_2023": null
+    },
+    {
+      "county": "Mille Lacs",
+      "district": "East Central",
+      "production_2022": 2973000,
+      "production_2023": 2322000
+    },
+    {
+      "county": "Pine",
+      "district": "East Central",
+      "production_2022": 2499000,
+      "production_2023": 2172000
+    },
+    {
+      "county": "Washington",
+      "district": "East Central",
+      "production_2022": 2749000,
+      "production_2023": 2860000
+    },
+    {
+      "county": "Cottonwood",
+      "district": "Southwest",
+      "production_2022": 35211000,
+      "production_2023": 35030000
+    },
+    {
+      "county": "Jackson",
+      "district": "Southwest",
+      "production_2022": 39759000,
+      "production_2023": 39098000
+    },
+    {
+      "county": "Lincoln",
+      "district": "Southwest",
+      "production_2022": null,
+      "production_2023": 21453000
+    },
+    {
+      "county": "Lyon",
+      "district": "Southwest",
+      "production_2022": 28706000,
+      "production_2023": null
+    },
+    {
+      "county": "Murray",
+      "district": "Southwest",
+      "production_2022": 32527000,
+      "production_2023": null
+    },
+    {
+      "county": "Nobles",
+      "district": "Southwest",
+      "production_2022": 38443000,
+      "production_2023": 38508000
+    },
+    {
+      "county": "Pipestone",
+      "district": "Southwest",
+      "production_2022": 16037000,
+      "production_2023": 17426000
+    },
+    {
+      "county": "Redwood",
+      "district": "Southwest",
+      "production_2022": 44746000,
+      "production_2023": 41888000
+    },
+    {
+      "county": "Rock",
+      "district": "Southwest",
+      "production_2022": 25466000,
+      "production_2023": null
+    },
+    {
+      "county": "Blue Earth",
+      "district": "South Central",
+      "production_2022": 38817000,
+      "production_2023": 36852000
+    },
+    {
+      "county": "Brown",
+      "district": "South Central",
+      "production_2022": 31665000,
+      "production_2023": 29714000
+    },
+    {
+      "county": "Faribault",
+      "district": "South Central",
+      "production_2022": 42849000,
+      "production_2023": null
+    },
+    {
+      "county": "Freeborn",
+      "district": "South Central",
+      "production_2022": 38915000,
+      "production_2023": 35444000
+    },
+    {
+      "county": "Le Sueur",
+      "district": "South Central",
+      "production_2022": 17492000,
+      "production_2023": 16469000
+    },
+    {
+      "county": "Martin",
+      "district": "South Central",
+      "production_2022": 45655000,
+      "production_2023": null
+    },
+    {
+      "county": "Nicollet",
+      "district": "South Central",
+      "production_2022": 22327000,
+      "production_2023": 21630000
+    },
+    {
+      "county": "Rice",
+      "district": "South Central",
+      "production_2022": 18229000,
+      "production_2023": 16736000
+    },
+    {
+      "county": "Steele",
+      "district": "South Central",
+      "production_2022": 22708000,
+      "production_2023": 20509000
+    },
+    {
+      "county": "Waseca",
+      "district": "South Central",
+      "production_2022": 24048000,
+      "production_2023": 22418000
+    },
+    {
+      "county": "Watonwan",
+      "district": "South Central",
+      "production_2022": 27391000,
+      "production_2023": 26142000
+    },
+    {
+      "county": "Dakota",
+      "district": "Southeast",
+      "production_2022": 14398000,
+      "production_2023": 15197000
+    },
+    {
+      "county": "Dodge",
+      "district": "Southeast",
+      "production_2022": 26048000,
+      "production_2023": 22088000
+    },
+    {
+      "county": "Fillmore",
+      "district": "Southeast",
+      "production_2022": 32117000,
+      "production_2023": 30795000
+    },
+    {
+      "county": "Goodhue",
+      "district": "Southeast",
+      "production_2022": 30540000,
+      "production_2023": 29600000
+    },
+    {
+      "county": "Houston",
+      "district": "Southeast",
+      "production_2022": 9074000,
+      "production_2023": 8903000
+    },
+    {
+      "county": "Mower",
+      "district": "Southeast",
+      "production_2022": 43513000,
+      "production_2023": 35456000
+    },
+    {
+      "county": "Olmsted",
+      "district": "Southeast",
+      "production_2022": 22004000,
+      "production_2023": 18791000
+    },
+    {
+      "county": "Wabasha",
+      "district": "Southeast",
+      "production_2022": 17472000,
+      "production_2023": null
+    },
+    {
+      "county": "Winona",
+      "district": "Southeast",
+      "production_2022": 13446000,
+      "production_2023": 12363000
+    }
+  ]
+}
