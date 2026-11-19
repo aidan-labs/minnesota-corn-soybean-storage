@@ -1,39 +1,40 @@
-# AI Log — MCSS Agricultural Data Page
+# AI Log — Harvest to Screen: Build an Ag Data Web Page
 
-Assignment: Harvest to Screen — Build an Ag Data Web Page
-Student folder: `students/AmrMo1717/`
+Student folder: `students/AmrMo1717/`  
+Project: Minnesota Corn & Soybean Storage (MCSS)
 
-## Prompt / direction 1 — assignment brief
+## AI prompts and directions used
 
-I supplied the full assignment instructions headed **“Building a Data Page — Harvest to Screen: Build an Ag Data Web Page.”** The brief required an individual HTML page that answers one decision question with public Minnesota agriculture data, filters and a chart, loads a saved local CSV/JSON copy, includes three `// ME:` comments, and includes an AI log and reflection.
+This log records the substantive prompts and directions used in this conversation. The original assignment brief and MCSS company profile were supplied earlier in the project; if the instructor expects a verbatim transcript of every prompt, paste the exact text of those original materials and any prompts from other AI sessions below rather than treating this summary as a verbatim transcript.
 
-## Prompt / direction 2 — company context
+1. **Assignment requirements:** I provided the “Harvest to Screen: Build an Ag Data Web Page” assignment instructions and asked for help completing the individual deliverable. The requirements included a decision question, public agricultural data, a stored local data file, a filter and chart, three `// ME:` comments, an AI log, and a reflection.
+2. **Company context:** I provided the MCSS company profile and asked that the project be connected to the team's hypothetical Minnesota corn and soybean storage business.
+3. **Repository context:** I provided the team's GitHub repository and asked for step-by-step help placing my individual work in `students/AmrMo1717/`.
+4. **Individual project direction:** I asked for guidance through the assignment and GitHub submission process. The selected decision question became: **Which Minnesota counties should MCSS evaluate first for corn storage?**
+5. **Reflection prompt:** I asked for help answering the four reflection questions about what happened in class, where data lives and who can change it, downstream users, and what the storefront should store.
+6. **Rubric review:** I provided the 20-point grading rubric and asked whether the work met each criterion.
+7. **Final revision request:** I asked for all project materials to be updated against the rubric so the submission would be as complete as possible.
 
-I supplied the MCSS company profile. It describes Minnesota Corn & Soybean Storage as a hypothetical grain-storage provider. Farmers retain ownership of corn and soybeans while MCSS receives, handles, stores, and releases grain. The company does not purchase grain, arrange transportation, or process commodities.
+## AI output that needed checking / error caught
 
-## Prompt / direction 3 — repository
+A visual example generated during the planning stage used illustrative bar heights and a county-count figure. Those were not verified USDA observations and should not be used as source data. I treated them as placeholders and checked the actual figures against the USDA NASS Minnesota county-estimates report before using the stored JSON values.
 
-I supplied the team repository URL: https://github.com/aidan-labs/minnesota-corn-soybean-storage/tree/main and clarified that it is the team's repository.
+I checked key values against the report's county table, including:
+- Renville, 2023: 54,578,000 bushels
+- Redwood, 2023: 41,888,000 bushels
+- Renville, 2022: 52,892,000 bushels
 
-## Prompt / direction 4 — project approach
+I also checked how the report handles dash-marked county values. The dashboard preserves those as `null` (no individual county estimate displayed) rather than silently converting them to zero. Aggregate rows such as “Other counties” and the statewide total are not treated as individual counties.
 
-The AI recommended using county crop production to evaluate potential grain-storage locations. After inspecting the team repository, it selected a county-level corn-for-grain dataset and a year filter. The chosen decision question is: **“Which Minnesota counties should MCSS evaluate first for corn storage?”**
+## Source and verification record
 
-## What the AI got wrong or what needed checking
+- **Source:** USDA National Agricultural Statistics Service, *Minnesota Ag News — 2023 Corn County Estimates*
+- **Source URL:** https://www.nass.usda.gov/Statistics_by_State/Minnesota/Publications/County_Estimates/2024/MN-CtyEst-Corn-02-24.pdf
+- **Report date:** February 23, 2024
+- **Data snapshot date recorded in JSON:** November 17, 2026
+- **Measures:** County corn-for-grain production, in bushels, for crop years 2022 and 2023
+- **How checked:** Compared sample county values and the report's notes/footnotes with the local JSON data; checked that the dashboard filters published estimates and does not rank aggregate rows as counties.
 
-An early visual mockup used illustrative bar heights and a county-count figure; those were only placeholders and were not USDA observations. They were not used in the final dashboard. I checked the actual values against USDA NASS's Minnesota Ag News report, **2023 Corn County Estimates**, published February 23, 2024. The report identifies Renville as the top 2023 county at 54.6 million bushels and Redwood at 41.9 million bushels. The detailed table reports Renville at 54,578,000 and Redwood at 41,888,000 bushels. The final JSON uses the table figures rather than the rounded summary.
+## Remaining manual verification
 
-I also checked the report's footnote: a dash means the estimate did not meet publication standards (or represents zero in the report's footnote context). In the dashboard those entries are treated as **no individual county estimate shown** and are excluded from ranking, rather than being assumed to equal zero. The report also includes an “Other counties” aggregate and a Minnesota total; neither is presented as an individual county.
-
-## Data verification
-
-- Source: https://www.nass.usda.gov/Statistics_by_State/Minnesota/Publications/County_Estimates/2024/MN-CtyEst-Corn-02-24.pdf
-- Report publication date: February 23, 2024.
-- Local data snapshot download/creation date: November 17, 2026.
-- Fields stored: county, USDA district, 2022 corn-for-grain production (bushels), and 2023 corn-for-grain production (bushels).
-- Verification examples: Renville 2023 = 54,578,000; Redwood 2023 = 41,888,000; Renville 2022 = 52,892,000.
-- The HTML reads `corn-production.json` from the same folder. No live API call is needed for the dashboard to work after the files are hosted together.
-
-## Final check still to perform after adding the files to GitHub
-
-Open the page through GitHub Pages or a local web server (such as VS Code Live Server), change the year and county dropdowns, and confirm the chart/table update. A browser may block JSON `fetch()` when the HTML is opened directly with a `file://` URL; that is a browser restriction, not evidence that the JSON is missing.
+After committing the files, open the page through a web server (not by double-clicking the HTML file) and test both dropdowns. Confirm that the chart and table update when the year and county change. A browser can block a JSON `fetch()` request from a `file://` page; that is a browser security restriction. Also review this log and add any exact prompts used in other AI sessions or omitted from this conversation if “all prompts” is interpreted literally.

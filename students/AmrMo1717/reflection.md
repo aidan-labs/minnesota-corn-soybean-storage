@@ -1,11 +1,17 @@
 # Reflection — Harvest to Screen
 
-**Before submitting:** Replace the bracketed sentence with what actually happened to you in class. I cannot know your personal in-class experience from the repository or assignment brief.
+**1. What broke or surprised you in class, and what was the real cause?**
 
-[Describe what broke or surprised you in class in one or two specific sentences.] The important technical lesson in this project is that a webpage and its saved data are separate files. The page must load the JSON correctly, and a browser may block that request when the HTML is opened directly from a `file://` path. Testing with a local web server or GitHub Pages avoids that issue.
+I was surprised by how much agricultural information USDA's National Agricultural Statistics Service (NASS) makes publicly available, and how quickly AI helped turn that information into a webpage with filters and a chart. Reviewing NASS in class showed me that finding a number is only the first step: I also need to understand what it measures, its crop year, and its limitations. The real challenge is checking that an AI-generated visualization accurately represents the original source.
 
-The data now lives in `students/AmrMo1717/corn-production.json` in our team repository. It is a saved snapshot transcribed from a USDA NASS county-estimates report covering 2022 and 2023 corn-for-grain production. The source website may change, but this local copy stays the same unless someone commits a change. Anyone with repository write access could alter the JSON or page without me noticing, so the source URL, report date, download date, and data limitations are documented.
+**2. Where does your data live now, and who could change it without you knowing?**
 
-Downstream buyers and processors could use county production as an indication of where corn is grown. MCSS operations staff could use it to decide which areas deserve further storage-location research. They would need to trust that the source is USDA, that the year and bushel units are clear, that the values match the report, and that dash-marked entries are not misrepresented as zero. Production alone does not show how much grain is available to MCSS.
+My data is stored in `students/AmrMo1717/corn-production.json` in our team's GitHub repository. It is a saved snapshot of USDA NASS county corn-for-grain production estimates for 2022 and 2023. Anyone with write access could change the JSON or webpage. GitHub's commit history can help identify changes, but I would still need to review and verify them.
 
-One thing our storefront should store for a trustworthy signal next week is a dated inventory record showing bushels received, released, and remaining by crop. County production describes potential supply, while inventory records show what MCSS actually holds and can release to buyers or processors.
+**3. Who downstream would act on your page, and what would they need to trust it?**
+
+MCSS operations staff could use the dashboard to identify counties worth investigating for future corn-storage opportunities. They need confidence in the USDA source, crop years, bushel units, and treatment of unpublished estimates. Production indicates where corn is grown; it does not prove how much grain is available to store.
+
+**4. What should your team's storefront store for its signal to be trusted next week?**
+
+The storefront should store dated inventory transactions showing bushels received, released, and remaining by commodity and location. This would give operations staff a current, auditable picture of MCSS inventory instead of relying only on historical county production.
