@@ -21,8 +21,8 @@ Downloaded: November 19, 2026. Saved annual records: minnesota_soybean_productio
 <footer>MCSS student supply-chain analysis • Historical production does not establish actual transportation delays or storage utilization.</footer>
 </main>
 <script>
-// ME: The webpage reads the saved USDA CSV file when it opens.
-// ME: The production array keeps the yearly records in the browser's memory.
+// ME: My webpage retrieves soybean production data from the CSV file saved in my GitHub folder (Getting the data).
+// ME: The production array temporarily stores the soybean production data in the browser while the webpage is running (Holding the data).
 let production = [];
 const select = document.getElementById('year');
 async function loadData() {
@@ -49,7 +49,7 @@ async function loadData() {
   render();
 }
 const svg=document.getElementById('chart');const NS='http://www.w3.org/2000/svg';function add(tag,attrs,text){const e=document.createElementNS(NS,tag);Object.entries(attrs).forEach(([k,v])=>e.setAttribute(k,v));if(text!==undefined)e.textContent=text;svg.append(e);return e}
-// ME: This function changes the selected year, calculates the year-over-year difference, and redraws the bar chart from the stored production array.
+// ME: When a user selects a year, the render function uses the stored data to calculate the annual percentage change, calculate the historical average, and update the bar chart (Using the data).
 function render(){const year=Number(select.value),i=production.findIndex(d=>d.year===year),d=production[i],prev=production[i-1],million=d.bushels/1e6,avg=production.reduce((s,r)=>s+r.bushels,0)/production.length/1e6;
 document.getElementById('selected').textContent=million.toFixed(2);document.getElementById('average').textContent=avg.toFixed(2);let change=null;if(prev){change=(d.bushels-prev.bushels)/prev.bushels*100;document.getElementById('change').textContent=(change>=0?'+':'')+change.toFixed(1)+'%'}else document.getElementById('change').textContent='N/A';
 svg.replaceChildren();const left=66,top=20,bottom=326,right=936,max=450;for(let t=0;t<=400;t+=100){const y=bottom-(t/max)*(bottom-top);add('line',{x1:left,y1:y,x2:right,y2:y,stroke:'#dbe6dd','stroke-width':1});add('text',{x:56,y:y+5,'text-anchor':'end','font-size':14,fill:'#5a7161'},String(t))}add('text',{x:20,y:16,'font-size':13,fill:'#5a7161'},'Million bushels');const step=(right-left)/production.length;production.forEach((r,j)=>{const h=(r.bushels/1e6/max)*(bottom-top),x=left+j*step+12;add('rect',{x,y:bottom-h,width:step-24,height:h,rx:4,fill:r.year===year?'#18825c':'#a9cdb7'});add('text',{x:x+(step-24)/2,y:bottom+25,'text-anchor':'middle','font-size':14,fill:'#375344'},String(r.year))});
