@@ -52,7 +52,7 @@ I also checked how the report handles dash-marked county values. The dashboard p
 
 ## Source and Verification Record
 
-- **Source:** USDA National Agricultural Statistics Service, *Minnesota Ag News — 2023 Corn County Estimates*
+- **Source:** USDA National Agricultural Statistics Service, _Minnesota Ag News — 2023 Corn County Estimates_
 - **Source URL:** https://www.nass.usda.gov/Statistics_by_State/Minnesota/Publications/County_Estimates/2024/MN-CtyEst-Corn-02-24.pdf
 - **Report date:** February 23, 2024
 - **Data snapshot date recorded in JSON:** November 17, 2026

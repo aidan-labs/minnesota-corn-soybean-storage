@@ -2,61 +2,371 @@
 <!-- Data source: https://quickstats.nass.usda.gov/results/B71D223A-77F9-3919-84E2-D624D3E2FF9A
 Downloaded: November 19, 2026. Saved annual records: minnesota_soybean_production.csv -->
 <html lang="en">
-<head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>MCSS | Soybean Production & Delivery Planning</title>
-<style>
-:root{font-family:system-ui,-apple-system,Segoe UI,sans-serif;color:#172c25;background:#f3f6f2}*{box-sizing:border-box}body{margin:0}header{background:#163e31;color:white;padding:30px max(22px,calc((100vw - 1060px)/2))}header p{color:#c8e0d2;margin:7px 0 0}main{max-width:1060px;margin:28px auto;padding:0 20px}.panel{background:white;border:1px solid #d9e4db;border-radius:14px;padding:24px;margin-bottom:18px;box-shadow:0 2px 8px #1235}.eyebrow{font-size:12px;text-transform:uppercase;letter-spacing:1.4px;color:#5b7c68;font-weight:700}h1{margin:0;font-size:30px}h2{margin:5px 0 15px;font-size:21px}.controls{display:flex;align-items:center;gap:12px;flex-wrap:wrap}select{border:1px solid #b9cfc1;border-radius:8px;padding:10px;font-size:15px;background:white}.metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.metric{background:#eaf3ed;border-radius:10px;padding:18px}.metric strong{display:block;font-size:27px;margin-top:6px}.metric span{font-size:13px;color:#476354}.chart-wrap{overflow-x:auto}svg{display:block;width:100%;min-width:560px;height:auto}.note{font-size:13px;color:#587061;line-height:1.6}footer{margin:22px 0 36px;color:#557061;font-size:13px}a{color:#166344}button{border:1px solid #b5cfc0;background:white;padding:10px 14px;border-radius:8px;cursor:pointer}@media(max-width:650px){.metrics{grid-template-columns:1fr}h1{font-size:25px}}
-</style>
-</head>
-<body>
-<header><div class="eyebrow" style="color:#b6d8c1">Minnesota Corn & Soybean Storage</div><h1>Soybean Production & Delivery Planning</h1><p>Historical Minnesota soybean production | USDA NASS | 2015–2025</p></header>
-<main>
-<section class="panel"><div class="eyebrow">Decision question</div><h2>How can historical soybean production inform MCSS grain-handling and delivery planning?</h2><p>Compare annual statewide production to understand how harvest volumes fluctuate. Production is a planning indicator, <strong>not</strong> a direct measure of shipments, storage demand, or pickup schedules.</p></section>
-<section class="panel"><div class="controls"><label for="year"><strong>Inspect year:</strong></label><select id="year" aria-label="Choose production year"></select><button id="all">Show latest year</button></div></section>
-<section class="metrics" aria-live="polite"><div class="metric"><span>Selected-year production</span><strong id="selected">—</strong><span>million bushels</span></div><div class="metric"><span>Change from previous year</span><strong id="change">—</strong><span>year over year</span></div><div class="metric"><span>2015–2025 average</span><strong id="average">—</strong><span>million bushels annually</span></div></section>
-<section class="panel"><div class="eyebrow">Annual production</div><h2>Minnesota soybean production by year</h2><div class="chart-wrap"><svg id="chart" viewBox="0 0 960 390" role="img" aria-label="Bar chart of annual Minnesota soybean production from 2015 to 2025"></svg></div><p class="note">Bar heights represent annual production in millions of bushels. Highlighted bar = selected year. Data: USDA NASS, annual observations (Period = YEAR).</p></section>
-<section class="panel"><div class="eyebrow">Business interpretation</div><h2>What this means for MCSS</h2><p id="insight"></p><p class="note">MCSS stores farmers' grain and prepares it for release; it does not own the grain or arrange transportation. Statewide production can inform broad capacity discussions, but operational delivery decisions require facility-level inventory, farmer release requests, and pickup records.</p></section>
-<section class="panel"><div class="eyebrow">Data transparency</div><h2>Where the numbers come from</h2><p>Source: <a href="https://quickstats.nass.usda.gov/results/B71D223A-77F9-3919-84E2-D624D3E2FF9A" target="_blank" rel="noopener">USDA NASS Quick Stats — Minnesota soybean production</a>. Downloaded November 19, 2026. Original data includes forecasts; this page uses only annual <code>YEAR</code> records.</p><p>Stored copy: <a href="minnesota_soybean_production.csv" download>minnesota_soybean_production.csv</a> in the same project folder. The dashboard loads this saved CSV directly from the project folder, without contacting USDA. Open the page through GitHub Pages or a local web server.</p></section>
-<footer>MCSS student supply-chain analysis • Historical production does not establish actual transportation delays or storage utilization.</footer>
-</main>
-<script>
-// ME: My webpage retrieves soybean production data from the CSV file saved in my GitHub folder (Getting the data).
-// ME: The production array temporarily stores the soybean production data in the browser while the webpage is running (Holding the data).
-let production = [];
-const select = document.getElementById('year');
-async function loadData() {
-  const response = await fetch('./minnesota_soybean_production.csv');
-  if (!response.ok) throw new Error('CSV could not be loaded');
-  const csv = await response.text();
-  const [header, ...rows] = csv.trim().split(/\r?\n/);
-  if (header.trim() !== 'Year,State,Commodity,Period,Production_Bushels') throw new Error('Unexpected CSV columns');
-  production = rows.map(row => {
-    const [year, state, commodity, period, bushels] = row.split(',');
-    return {year: Number(year), bushels: Number(bushels), period};
-  }).filter(row => row.period === 'YEAR').sort((a,b) => a.year-b.year);
-  if (!production.length || production.some(r => !Number.isFinite(r.year) || !Number.isFinite(r.bushels))) throw new Error('Invalid production data');
-  production.forEach(d => {
-    const option = document.createElement('option');
-    option.value = d.year;
-    option.textContent = d.year;
-    select.append(option);
-  });
-  const latest = String(production[production.length-1].year);
-  select.value = latest;
-  select.addEventListener('change', render);
-  document.getElementById('all').addEventListener('click', () => {select.value = latest; render();});
-  render();
-}
-const svg=document.getElementById('chart');const NS='http://www.w3.org/2000/svg';function add(tag,attrs,text){const e=document.createElementNS(NS,tag);Object.entries(attrs).forEach(([k,v])=>e.setAttribute(k,v));if(text!==undefined)e.textContent=text;svg.append(e);return e}
-// ME: When a user selects a year, the render function uses the stored data to calculate the annual percentage change, calculate the historical average, and update the bar chart (Using the data).
-function render(){const year=Number(select.value),i=production.findIndex(d=>d.year===year),d=production[i],prev=production[i-1],million=d.bushels/1e6,avg=production.reduce((s,r)=>s+r.bushels,0)/production.length/1e6;
-document.getElementById('selected').textContent=million.toFixed(2);document.getElementById('average').textContent=avg.toFixed(2);let change=null;if(prev){change=(d.bushels-prev.bushels)/prev.bushels*100;document.getElementById('change').textContent=(change>=0?'+':'')+change.toFixed(1)+'%'}else document.getElementById('change').textContent='N/A';
-svg.replaceChildren();const left=66,top=20,bottom=326,right=936,max=450;for(let t=0;t<=400;t+=100){const y=bottom-(t/max)*(bottom-top);add('line',{x1:left,y1:y,x2:right,y2:y,stroke:'#dbe6dd','stroke-width':1});add('text',{x:56,y:y+5,'text-anchor':'end','font-size':14,fill:'#5a7161'},String(t))}add('text',{x:20,y:16,'font-size':13,fill:'#5a7161'},'Million bushels');const step=(right-left)/production.length;production.forEach((r,j)=>{const h=(r.bushels/1e6/max)*(bottom-top),x=left+j*step+12;add('rect',{x,y:bottom-h,width:step-24,height:h,rx:4,fill:r.year===year?'#18825c':'#a9cdb7'});add('text',{x:x+(step-24)/2,y:bottom+25,'text-anchor':'middle','font-size':14,fill:'#375344'},String(r.year))});
-let sentence=`In ${year}, Minnesota produced ${million.toFixed(2)} million bushels of soybeans.`;if(change!==null)sentence+=` That was ${Math.abs(change).toFixed(1)}% ${change>=0?'higher':'lower'} than ${year-1}.`;sentence+=' MCSS can use this statewide trend to discuss possible changes in grain-handling workload, but it must check local customer demand and actual pickup records before setting staffing or delivery schedules.';document.getElementById('insight').textContent=sentence}
-loadData().catch(error => {
-  document.getElementById('insight').textContent = 'Unable to load the saved CSV. Check the file name and open this page through GitHub Pages or a local server.';
-  console.error(error);
-});
-</script>
-</body></html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>MCSS | Soybean Production & Delivery Planning</title>
+    <style>
+      :root {
+        font-family:
+          system-ui,
+          -apple-system,
+          Segoe UI,
+          sans-serif;
+        color: #172c25;
+        background: #f3f6f2;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+      }
+      header {
+        background: #163e31;
+        color: white;
+        padding: 30px max(22px, calc((100vw - 1060px) / 2));
+      }
+      header p {
+        color: #c8e0d2;
+        margin: 7px 0 0;
+      }
+      main {
+        max-width: 1060px;
+        margin: 28px auto;
+        padding: 0 20px;
+      }
+      .panel {
+        background: white;
+        border: 1px solid #d9e4db;
+        border-radius: 14px;
+        padding: 24px;
+        margin-bottom: 18px;
+        box-shadow: 0 2px 8px #1235;
+      }
+      .eyebrow {
+        font-size: 12px;
+        text-transform: uppercase;
+        letter-spacing: 1.4px;
+        color: #5b7c68;
+        font-weight: 700;
+      }
+      h1 {
+        margin: 0;
+        font-size: 30px;
+      }
+      h2 {
+        margin: 5px 0 15px;
+        font-size: 21px;
+      }
+      .controls {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+      select {
+        border: 1px solid #b9cfc1;
+        border-radius: 8px;
+        padding: 10px;
+        font-size: 15px;
+        background: white;
+      }
+      .metrics {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 14px;
+      }
+      .metric {
+        background: #eaf3ed;
+        border-radius: 10px;
+        padding: 18px;
+      }
+      .metric strong {
+        display: block;
+        font-size: 27px;
+        margin-top: 6px;
+      }
+      .metric span {
+        font-size: 13px;
+        color: #476354;
+      }
+      .chart-wrap {
+        overflow-x: auto;
+      }
+      svg {
+        display: block;
+        width: 100%;
+        min-width: 560px;
+        height: auto;
+      }
+      .note {
+        font-size: 13px;
+        color: #587061;
+        line-height: 1.6;
+      }
+      footer {
+        margin: 22px 0 36px;
+        color: #557061;
+        font-size: 13px;
+      }
+      a {
+        color: #166344;
+      }
+      button {
+        border: 1px solid #b5cfc0;
+        background: white;
+        padding: 10px 14px;
+        border-radius: 8px;
+        cursor: pointer;
+      }
+      @media (max-width: 650px) {
+        .metrics {
+          grid-template-columns: 1fr;
+        }
+        h1 {
+          font-size: 25px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="eyebrow" style="color: #b6d8c1">
+        Minnesota Corn & Soybean Storage
+      </div>
+      <h1>Soybean Production & Delivery Planning</h1>
+      <p>Historical Minnesota soybean production | USDA NASS | 2015–2025</p>
+    </header>
+    <main>
+      <section class="panel">
+        <div class="eyebrow">Decision question</div>
+        <h2>
+          How can historical soybean production inform MCSS grain-handling and
+          delivery planning?
+        </h2>
+        <p>
+          Compare annual statewide production to understand how harvest volumes
+          fluctuate. Production is a planning indicator, <strong>not</strong> a
+          direct measure of shipments, storage demand, or pickup schedules.
+        </p>
+      </section>
+      <section class="panel">
+        <div class="controls">
+          <label for="year"><strong>Inspect year:</strong></label
+          ><select id="year" aria-label="Choose production year"></select
+          ><button id="all">Show latest year</button>
+        </div>
+      </section>
+      <section class="metrics" aria-live="polite">
+        <div class="metric">
+          <span>Selected-year production</span><strong id="selected">—</strong
+          ><span>million bushels</span>
+        </div>
+        <div class="metric">
+          <span>Change from previous year</span><strong id="change">—</strong
+          ><span>year over year</span>
+        </div>
+        <div class="metric">
+          <span>2015–2025 average</span><strong id="average">—</strong
+          ><span>million bushels annually</span>
+        </div>
+      </section>
+      <section class="panel">
+        <div class="eyebrow">Annual production</div>
+        <h2>Minnesota soybean production by year</h2>
+        <div class="chart-wrap">
+          <svg
+            id="chart"
+            viewBox="0 0 960 390"
+            role="img"
+            aria-label="Bar chart of annual Minnesota soybean production from 2015 to 2025"
+          ></svg>
+        </div>
+        <p class="note">
+          Bar heights represent annual production in millions of bushels.
+          Highlighted bar = selected year. Data: USDA NASS, annual observations
+          (Period = YEAR).
+        </p>
+      </section>
+      <section class="panel">
+        <div class="eyebrow">Business interpretation</div>
+        <h2>What this means for MCSS</h2>
+        <p id="insight"></p>
+        <p class="note">
+          MCSS stores farmers' grain and prepares it for release; it does not
+          own the grain or arrange transportation. Statewide production can
+          inform broad capacity discussions, but operational delivery decisions
+          require facility-level inventory, farmer release requests, and pickup
+          records.
+        </p>
+      </section>
+      <section class="panel">
+        <div class="eyebrow">Data transparency</div>
+        <h2>Where the numbers come from</h2>
+        <p>
+          Source:
+          <a
+            href="https://quickstats.nass.usda.gov/results/B71D223A-77F9-3919-84E2-D624D3E2FF9A"
+            target="_blank"
+            rel="noopener"
+            >USDA NASS Quick Stats — Minnesota soybean production</a
+          >. Downloaded November 19, 2026. Original data includes forecasts;
+          this page uses only annual <code>YEAR</code> records.
+        </p>
+        <p>
+          Stored copy:
+          <a href="minnesota_soybean_production.csv" download
+            >minnesota_soybean_production.csv</a
+          >
+          in the same project folder. The dashboard loads this saved CSV
+          directly from the project folder, without contacting USDA. Open the
+          page through GitHub Pages or a local web server.
+        </p>
+      </section>
+      <footer>
+        MCSS student supply-chain analysis • Historical production does not
+        establish actual transportation delays or storage utilization.
+      </footer>
+    </main>
+    <script>
+      // ME: My webpage retrieves soybean production data from the CSV file saved in my GitHub folder (Getting the data).
+      // ME: The production array temporarily stores the soybean production data in the browser while the webpage is running (Holding the data).
+      let production = [];
+      const select = document.getElementById("year");
+      async function loadData() {
+        const response = await fetch("./minnesota_soybean_production.csv");
+        if (!response.ok) throw new Error("CSV could not be loaded");
+        const csv = await response.text();
+        const [header, ...rows] = csv.trim().split(/\r?\n/);
+        if (header.trim() !== "Year,State,Commodity,Period,Production_Bushels")
+          throw new Error("Unexpected CSV columns");
+        production = rows
+          .map((row) => {
+            const [year, state, commodity, period, bushels] = row.split(",");
+            return { year: Number(year), bushels: Number(bushels), period };
+          })
+          .filter((row) => row.period === "YEAR")
+          .sort((a, b) => a.year - b.year);
+        if (
+          !production.length ||
+          production.some(
+            (r) => !Number.isFinite(r.year) || !Number.isFinite(r.bushels),
+          )
+        )
+          throw new Error("Invalid production data");
+        production.forEach((d) => {
+          const option = document.createElement("option");
+          option.value = d.year;
+          option.textContent = d.year;
+          select.append(option);
+        });
+        const latest = String(production[production.length - 1].year);
+        select.value = latest;
+        select.addEventListener("change", render);
+        document.getElementById("all").addEventListener("click", () => {
+          select.value = latest;
+          render();
+        });
+        render();
+      }
+      const svg = document.getElementById("chart");
+      const NS = "http://www.w3.org/2000/svg";
+      function add(tag, attrs, text) {
+        const e = document.createElementNS(NS, tag);
+        Object.entries(attrs).forEach(([k, v]) => e.setAttribute(k, v));
+        if (text !== undefined) e.textContent = text;
+        svg.append(e);
+        return e;
+      }
+      // ME: When a user selects a year, the render function uses the stored data to calculate the annual percentage change, calculate the historical average, and update the bar chart (Using the data).
+      function render() {
+        const year = Number(select.value),
+          i = production.findIndex((d) => d.year === year),
+          d = production[i],
+          prev = production[i - 1],
+          million = d.bushels / 1e6,
+          avg =
+            production.reduce((s, r) => s + r.bushels, 0) /
+            production.length /
+            1e6;
+        document.getElementById("selected").textContent = million.toFixed(2);
+        document.getElementById("average").textContent = avg.toFixed(2);
+        let change = null;
+        if (prev) {
+          change = ((d.bushels - prev.bushels) / prev.bushels) * 100;
+          document.getElementById("change").textContent =
+            (change >= 0 ? "+" : "") + change.toFixed(1) + "%";
+        } else document.getElementById("change").textContent = "N/A";
+        svg.replaceChildren();
+        const left = 66,
+          top = 20,
+          bottom = 326,
+          right = 936,
+          max = 450;
+        for (let t = 0; t <= 400; t += 100) {
+          const y = bottom - (t / max) * (bottom - top);
+          add("line", {
+            x1: left,
+            y1: y,
+            x2: right,
+            y2: y,
+            stroke: "#dbe6dd",
+            "stroke-width": 1,
+          });
+          add(
+            "text",
+            {
+              x: 56,
+              y: y + 5,
+              "text-anchor": "end",
+              "font-size": 14,
+              fill: "#5a7161",
+            },
+            String(t),
+          );
+        }
+        add(
+          "text",
+          { x: 20, y: 16, "font-size": 13, fill: "#5a7161" },
+          "Million bushels",
+        );
+        const step = (right - left) / production.length;
+        production.forEach((r, j) => {
+          const h = (r.bushels / 1e6 / max) * (bottom - top),
+            x = left + j * step + 12;
+          add("rect", {
+            x,
+            y: bottom - h,
+            width: step - 24,
+            height: h,
+            rx: 4,
+            fill: r.year === year ? "#18825c" : "#a9cdb7",
+          });
+          add(
+            "text",
+            {
+              x: x + (step - 24) / 2,
+              y: bottom + 25,
+              "text-anchor": "middle",
+              "font-size": 14,
+              fill: "#375344",
+            },
+            String(r.year),
+          );
+        });
+        let sentence = `In ${year}, Minnesota produced ${million.toFixed(2)} million bushels of soybeans.`;
+        if (change !== null)
+          sentence += ` That was ${Math.abs(change).toFixed(1)}% ${change >= 0 ? "higher" : "lower"} than ${year - 1}.`;
+        sentence +=
+          " MCSS can use this statewide trend to discuss possible changes in grain-handling workload, but it must check local customer demand and actual pickup records before setting staffing or delivery schedules.";
+        document.getElementById("insight").textContent = sentence;
+      }
+      loadData().catch((error) => {
+        document.getElementById("insight").textContent =
+          "Unable to load the saved CSV. Check the file name and open this page through GitHub Pages or a local server.";
+        console.error(error);
+      });
+    </script>
+  </body>
+</html>

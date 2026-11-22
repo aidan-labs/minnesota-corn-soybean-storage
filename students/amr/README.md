@@ -9,7 +9,7 @@ Which Minnesota counties should MCSS evaluate first for corn storage?
 
 ## Data source
 
-USDA National Agricultural Statistics Service (NASS), *Minnesota Ag News — 2023 Corn County Estimates*.
+USDA National Agricultural Statistics Service (NASS), _Minnesota Ag News — 2023 Corn County Estimates_.
 
 Source: https://www.nass.usda.gov/Statistics_by_State/Minnesota/Publications/County_Estimates/2024/MN-CtyEst-Corn-02-24.pdf
 

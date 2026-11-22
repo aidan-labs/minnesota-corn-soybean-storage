@@ -1,4 +1,3 @@
-
 # AI Log — Harvest to Screen: Build an Ag Data Web Page
 
 **Student:** Jonathan Le  
@@ -6,7 +5,7 @@
 **Course:** OPMT 375  
 **Project:** Minnesota Corn & Soybean Storage (MCSS)  
 **SCOR Pillar:** DELIVER  
-**AI Tool:** ChatGPT  
+**AI Tool:** ChatGPT
 
 **Decision Question:** How can historical soybean production inform MCSS grain-handling and delivery planning?
 
@@ -329,21 +328,21 @@ This confirmed that the updated webpage successfully requested the separate stor
 
 ## 5. Data Source and Traceability
 
-| Category | Description |
-|---|---|
-| Data Provider | USDA National Agricultural Statistics Service (NASS) |
-| Database | USDA NASS Quick Stats |
-| Download Date | November 19, 2026 |
-| Commodity | Soybeans |
-| Geographic Area | Minnesota |
-| Time Period | 2015–2025 |
-| Measurement Unit | Bushels |
-| Reporting Period | YEAR |
-| Original Dataset | 54 records |
-| Cleaned Dataset | 11 annual observations |
-| Stored File | minnesota_soybean_production.csv |
-| Storage Location | students/jonathan.le/ |
-| Data Retrieval Method | JavaScript fetch() |
+| Category              | Description                                          |
+| --------------------- | ---------------------------------------------------- |
+| Data Provider         | USDA National Agricultural Statistics Service (NASS) |
+| Database              | USDA NASS Quick Stats                                |
+| Download Date         | November 19, 2026                                    |
+| Commodity             | Soybeans                                             |
+| Geographic Area       | Minnesota                                            |
+| Time Period           | 2015–2025                                            |
+| Measurement Unit      | Bushels                                              |
+| Reporting Period      | YEAR                                                 |
+| Original Dataset      | 54 records                                           |
+| Cleaned Dataset       | 11 annual observations                               |
+| Stored File           | minnesota_soybean_production.csv                     |
+| Storage Location      | students/jonathan.le/                                |
+| Data Retrieval Method | JavaScript fetch()                                   |
 
 **Original Data Source:**
 
@@ -359,19 +358,19 @@ The saved CSV allows the webpage to retrieve historical data without depending o
 
 After updating the data-loading method, I manually tested the published dashboard using multiple year selections.
 
-| Verification Test | Observed Result | Status |
-|---|---|---|
-| CSV retrieval | HTTP status 200 | Passed |
-| JavaScript retrieval | Request type: fetch | Passed |
-| 2015 production | 377.50 million bushels | Displayed as expected |
-| 2015 annual change | N/A | Displayed as expected |
-| 2019 production | 297.88 million bushels | Displayed as expected |
-| 2019 annual change | -20.5% | Displayed as expected |
-| 2025 production | 371.18 million bushels | Displayed as expected |
-| 2025 annual change | +12.7% | Displayed as expected |
-| Historical average | 360.80 million bushels | Displayed as expected |
-| Interactive dropdown | Selected-year metrics update | Passed |
-| Chart functionality | Highlighted bar changes with year selection | Passed |
+| Verification Test    | Observed Result                             | Status                |
+| -------------------- | ------------------------------------------- | --------------------- |
+| CSV retrieval        | HTTP status 200                             | Passed                |
+| JavaScript retrieval | Request type: fetch                         | Passed                |
+| 2015 production      | 377.50 million bushels                      | Displayed as expected |
+| 2015 annual change   | N/A                                         | Displayed as expected |
+| 2019 production      | 297.88 million bushels                      | Displayed as expected |
+| 2019 annual change   | -20.5%                                      | Displayed as expected |
+| 2025 production      | 371.18 million bushels                      | Displayed as expected |
+| 2025 annual change   | +12.7%                                      | Displayed as expected |
+| Historical average   | 360.80 million bushels                      | Displayed as expected |
+| Interactive dropdown | Selected-year metrics update                | Passed                |
+| Chart functionality  | Highlighted bar changes with year selection | Passed                |
 
 The 2015 annual change is displayed as N/A because the dataset does not contain production information for 2014.
 
