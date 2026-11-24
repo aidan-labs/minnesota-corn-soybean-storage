@@ -1,4 +1,3 @@
-
 # Individual Ag Data Assignment — OPMT 375
 
 **Student:** Jonathan Le  
@@ -46,12 +45,12 @@ The cleaned dataset is stored locally within the project folder as `minnesota_so
 
 ## Files
 
-| File | Description |
-|---|---|
-| `index.html` | Interactive soybean production dashboard, calculations, visualizations, and code documentation. |
-| `minnesota_soybean_production.csv` | Cleaned USDA soybean production dataset used by the webpage. |
-| `ai-log.md` | AI prompt record, development process, technical corrections, and verification notes. |
-| `README.md` | Project overview, data source, file descriptions, and operating instructions. |
+| File                               | Description                                                                                     |
+| ---------------------------------- | ----------------------------------------------------------------------------------------------- |
+| `index.html`                       | Interactive soybean production dashboard, calculations, visualizations, and code documentation. |
+| `minnesota_soybean_production.csv` | Cleaned USDA soybean production dataset used by the webpage.                                    |
+| `ai-log.md`                        | AI prompt record, development process, technical corrections, and verification notes.           |
+| `README.md`                        | Project overview, data source, file descriptions, and operating instructions.                   |
 
 ## Running the Page
 
